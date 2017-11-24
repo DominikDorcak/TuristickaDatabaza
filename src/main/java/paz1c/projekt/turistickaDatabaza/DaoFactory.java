@@ -1,9 +1,10 @@
 
 package paz1c.projekt.turistickaDatabaza;
 
-import paz1c.projekt.turistickaDatabaza.database.PouzivatelDao;
+import paz1c.projekt.turistickaDatabaza.database.Pouzivatel;
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import paz1c.projekt.turistickaDatabaza.database.MysqlPouzivatelDao;
 
 
 public class DaoFactory {
@@ -23,7 +24,7 @@ public class DaoFactory {
         return jdbcTemplate;
     }
     
-    public PouzivatelDao getPouzivatelDao(){
+    public Pouzivatel getPouzivatelDao(){
         return new MysqlPouzivatelDao(getJDBCTemplate());
     }
 }
