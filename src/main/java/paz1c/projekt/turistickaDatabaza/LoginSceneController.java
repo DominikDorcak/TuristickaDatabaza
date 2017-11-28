@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 class LoginSceneController {
@@ -15,17 +16,19 @@ class LoginSceneController {
     @FXML
     private URL location;
 
-    @FXML
+     @FXML
     private TextField loginTextField;
-
-    @FXML
-    private TextField hesloTextField;
 
     @FXML
     private Button loginButton;
 
     @FXML
     private Button registraciaButton;
+
+    @FXML
+    private PasswordField hesloPasswordField;
+
+
 
     @FXML
     void initialize() {

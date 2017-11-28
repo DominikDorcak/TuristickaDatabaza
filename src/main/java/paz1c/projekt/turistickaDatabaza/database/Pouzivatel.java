@@ -7,20 +7,14 @@ import java.util.List;
 
 public class Pouzivatel {
     
-   private long id;
    private String login;
    private String heslo;
    private String email;
    private boolean admin = false;
-   private List<Lokalita> oblubene = new ArrayList();
+   private List<String> oblubene = new ArrayList();
 
-    public long getId() {
-        return id;
-    }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+    
 
     public String getLogin() {
         return login;
@@ -54,11 +48,11 @@ public class Pouzivatel {
         this.admin = admin;
     }
 
-    public List<Lokalita> getOblubene() {
+    public List<String> getOblubene() {
         return oblubene;
     }
 
-    public void setOblubene(List<Lokalita> oblubene) {
+    public void setOblubene(List<String> oblubene) {
         this.oblubene = oblubene;
     }
    
