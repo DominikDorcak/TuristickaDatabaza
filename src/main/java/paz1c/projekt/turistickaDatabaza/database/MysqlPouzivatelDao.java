@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
 
-public class MysqlPouzivatelDao {
+public class MysqlPouzivatelDao implements PouzivatelDao {
     
     private JdbcTemplate jdbcTemplate;
    
@@ -19,41 +19,39 @@ public class MysqlPouzivatelDao {
         this.jdbcTemplate = jdbcTemplate;
     }
     
+    @Override
     public List<Pouzivatel> getAll(){
-        String query = "SELECT p.id,login,p.heslo,p.email,p.admin,l.Nazov FROM TuristickaDatabaza.Pouzivatel p\n" +
+        String query = "SELECT p.login,p.heslo,p.email,p.admin,l.Nazov FROM TuristickaDatabaza.Pouzivatel p\n" +
 "                LEFT OUTER JOIN TuristickaDatabaza.Oblubene o \n" +
-"                ON p.id = o.pouzivatel_id\n" +
-"                JOIN TuristickaDatabaza.Lokalita l On o.lokalita_id = l.id\n" +
-"                ORDER BY p.id";
+"                ON p.login = o.pouzivatel_login\n" +
+"                JOIN TuristickaDatabaza.Lokalita l ON o.lokalita_id = l.id\n" +
+"                ORDER BY p.login";
         
-        return jdbcTemplate.query(query, new ResultSetExtractor<List<Pouzivatel>>() {
-            @Override
-            public List<Pouzivatel> extractData(ResultSet rs) throws SQLException, DataAccessException {
-                List<Pouzivatel> pouzivatelia = new ArrayList<>();
-                Pouzivatel pouzivatel = null;
-                while(rs.next()){
-                    String pouzivatelLogin = rs.getString("login");
-                    if(pouzivatel == null || pouzivatel.getLogin().equals(pouzivatelLogin)){
-                        pouzivatel.setLogin(pouzivatelLogin);
-                        pouzivatel.setEmail(rs.getString("email"));
-                        pouzivatel.setHeslo(rs.getString("heslo"));
-                        if(rs.getInt("admin")==1){
-                            pouzivatel.setAdmin(true);
-                        }
-                        pouzivatelia.add(pouzivatel);
+        return jdbcTemplate.query(query, (ResultSet rs) -> {
+            List<Pouzivatel> pouzivatelia = new ArrayList<>();
+            Pouzivatel pouzivatel = null;
+            while(rs.next()){
+                String pouzivatelLogin = rs.getString("login");
+                if(pouzivatel == null || pouzivatel.getLogin().equals(pouzivatelLogin)){
+                    pouzivatel.setLogin(pouzivatelLogin);
+                    pouzivatel.setEmail(rs.getString("email"));
+                    pouzivatel.setHeslo(rs.getString("heslo"));
+                    if(rs.getInt("admin")==1){
+                        pouzivatel.setAdmin(true);
                     }
-                    String lokalita = rs.getString("nazov");
-                    if(pouzivatel != null)
-                        pouzivatel.getOblubene().add(lokalita);
-                    
+                    pouzivatelia.add(pouzivatel);
                 }
-               return pouzivatelia; 
+                String lokalita = rs.getString("nazov"); 
+                if(lokalita != null)
+                    pouzivatel.getOblubene().add(lokalita);
+                
             }
-        
-    });  
+            return pouzivatelia;
+        });  
         
     }
     
+    @Override
     public Pouzivatel getByLogin(String login){
             List<Pouzivatel> pouzivatelia = getAll();
             for (Pouzivatel pouzivatel : pouzivatelia) {
@@ -61,6 +59,13 @@ public class MysqlPouzivatelDao {
                 return pouzivatel;
         }
             return null;
+    }
+    
+    @Override
+    public void save(Pouzivatel pouzivatel){
+        String query = "INSERT INTO TuristickaDatabaza.Pouzivatel(login,email,heslo,admin) VALUES (?,?,?,0)";
+        jdbcTemplate.update(query,pouzivatel.getLogin(),pouzivatel.getEmail(),pouzivatel.getHeslo());
+        
     }
     
     
