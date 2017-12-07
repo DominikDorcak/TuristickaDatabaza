@@ -21,32 +21,32 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
     
     @Override
     public List<Pouzivatel> getAll(){
-        String query = "SELECT p.login,p.heslo,p.email,p.admin,l.Nazov FROM TuristickaDatabaza.Pouzivatel p\n" +
-"                LEFT OUTER JOIN TuristickaDatabaza.Oblubene o \n" +
-"                ON p.login = o.pouzivatel_login\n" +
-"                JOIN TuristickaDatabaza.Lokalita l ON o.lokalita_id = l.id\n" +
-"                ORDER BY p.login";
+        String query = "select  p.login, p.heslo, p.email ,p.admin,l.Nazov from Pouzivatel p left outer join Oblubene o on  o.Pouzivatel_login = p.login join Lokalita l on l.id = o.Lokalita_id;";
         
-        return jdbcTemplate.query(query, (ResultSet rs) -> {
-            List<Pouzivatel> pouzivatelia = new ArrayList<>();
-            Pouzivatel pouzivatel = null;
-            while(rs.next()){
-                String pouzivatelLogin = rs.getString("login");
-                if(pouzivatel == null || pouzivatel.getLogin().equals(pouzivatelLogin)){
-                    pouzivatel.setLogin(pouzivatelLogin);
-                    pouzivatel.setEmail(rs.getString("email"));
-                    pouzivatel.setHeslo(rs.getString("heslo"));
-                    if(rs.getInt("admin")==1){
-                        pouzivatel.setAdmin(true);
+        return jdbcTemplate.query(query, new ResultSetExtractor<List<Pouzivatel>>() {
+            @Override
+            public List<Pouzivatel> extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<Pouzivatel> pouzivatelia = new ArrayList<>();
+                Pouzivatel pouzivatel = null;
+                while(rs.next()){
+                    String pouzivatelLogin = rs.getString("login");
+                    if(pouzivatel == null || !(pouzivatel.getLogin().equals(pouzivatelLogin))){
+                        pouzivatel = new Pouzivatel();
+                        pouzivatel.setLogin(pouzivatelLogin);
+                        pouzivatel.setEmail(rs.getString("email"));
+                        pouzivatel.setHeslo(rs.getString("heslo"));
+                        if(rs.getInt("admin")==1){
+                            pouzivatel.setAdmin(true);
+                        }
+                        pouzivatelia.add(pouzivatel);
                     }
-                    pouzivatelia.add(pouzivatel);
+                    String lokalita = rs.getString("nazov");
+                    if(lokalita != null)
+                        pouzivatel.getOblubene().add(lokalita);
+                    
                 }
-                String lokalita = rs.getString("nazov"); 
-                if(lokalita != null)
-                    pouzivatel.getOblubene().add(lokalita);
-                
+                return pouzivatelia;
             }
-            return pouzivatelia;
         });  
         
     }
