@@ -20,7 +20,7 @@ public class TuristickaDatabazaApp extends Application {
         Scene scene = new Scene(parentPane);
         
         stage.setScene(scene);
-        stage.setTitle("Turistická databáza");
+        stage.setTitle("Turistická databáza: prihlásenie");
         stage.show();
     }
     

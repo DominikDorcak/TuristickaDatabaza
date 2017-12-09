@@ -10,6 +10,6 @@ public interface PouzivatelDao {
 
     Pouzivatel getByLogin(String login);
 
-    void save(Pouzivatel pouzivatel);
+    void saveNew(Pouzivatel pouzivatel);
     
 }

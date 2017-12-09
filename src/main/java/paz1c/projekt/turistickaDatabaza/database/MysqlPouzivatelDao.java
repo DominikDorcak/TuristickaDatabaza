@@ -21,7 +21,9 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
     
     @Override
     public List<Pouzivatel> getAll(){
-        String query = "select  p.login, p.heslo, p.email ,p.admin,l.Nazov from Pouzivatel p left outer join Oblubene o on  o.Pouzivatel_login = p.login join Lokalita l on l.id = o.Lokalita_id;";
+        String query = "select  p.login, p.heslo, p.email ,p.admin,l.Nazov from Pouzivatel p "
+                + "left outer join Oblubene o on  o.Pouzivatel_login = p.login "
+                + "join Lokalita l on l.id = o.Lokalita_id;";
         
         return jdbcTemplate.query(query, new ResultSetExtractor<List<Pouzivatel>>() {
             @Override
@@ -62,7 +64,7 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
     }
     
     @Override
-    public void save(Pouzivatel pouzivatel){
+    public void saveNew(Pouzivatel pouzivatel){
         String query = "INSERT INTO TuristickaDatabaza.Pouzivatel(login,email,heslo,admin) VALUES (?,?,?,0)";
         jdbcTemplate.update(query,pouzivatel.getLogin(),pouzivatel.getEmail(),pouzivatel.getHeslo());
         
