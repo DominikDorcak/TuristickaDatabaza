@@ -29,7 +29,7 @@ public enum DaoFactory {
     public PouzivatelDao getPouzivatelDao(){
         return new MysqlPouzivatelDao(getJDBCTemplate());
     }
-    public MysqlLokalitaDao getLokalitaDao(){ //moze tu byt toto alebo treba vytvorit interfejs LokalitaDao?
+    public LokalitaDao getLokalitaDao(){ 
         return new MysqlLokalitaDao(getJDBCTemplate());
     }
     
