@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
@@ -36,6 +37,12 @@ class LoginSceneController {
 
     @FXML
     private PasswordField hesloPasswordField;
+    
+     @FXML
+    private Label chybaLabel;
+
+    @FXML
+    private Label hlaskaLabel;
 
     @FXML
     void initialize() {
@@ -49,6 +56,8 @@ class LoginSceneController {
                 if(pouzivatelModel.getHeslo().equals(pouzivatel.getHeslo())){
                     System.out.println("vyslo to!!");
                 }
+            }else{
+                chybaLabel.textProperty().set("Žiaden používateľ s daným loginom!");
             }
         });
         
@@ -71,6 +80,9 @@ class LoginSceneController {
                 stage.showAndWait();
 
                 // toto sa vykona az po zatvoreni okna
+                hlaskaLabel.textProperty().set("Registrácia úspešná, pokračujte prihlásením");
+                loginTextField.clear();
+                hesloPasswordField.clear();
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }

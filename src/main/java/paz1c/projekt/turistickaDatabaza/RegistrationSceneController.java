@@ -53,23 +53,23 @@ public class RegistrationSceneController {
 
         registrationButton.setOnAction(eh -> {
 
-            if ((hesloPasswordField.textProperty().get().equals(overenieHeslaPasswordField.textProperty().get()))==false) {
+            if ((hesloPasswordField.textProperty().get().equals(overenieHeslaPasswordField.textProperty().get())) == false) {
                 hlaskaLabel.textProperty().set("Heslá sa nezhodujú");
                 hesloPasswordField.clear();
                 overenieHeslaPasswordField.clear();
-            }else{
-                if (DaoFactory.INSTANCE.getPouzivatelDao().
-                        getByLogin(pouzivatelFxModel.getLogin()) != null) {
-                    hlaskaLabel.textProperty().set("Používateľ s takýmto loginom už existuje");
-                } else {
-                    Pouzivatel pouzivatel = new Pouzivatel();
-                    pouzivatel.setAdmin(false);
-                    pouzivatel.setLogin(pouzivatelFxModel.getLogin());
-                    pouzivatel.setEmail(pouzivatelFxModel.getEmail());
-                    pouzivatel.setHeslo(pouzivatelFxModel.getHeslo());
-                    DaoFactory.INSTANCE.getPouzivatelDao().saveNew(pouzivatel);
-                    registrationButton.getScene().getWindow().hide();
-                }
+            } else if (DaoFactory.INSTANCE.getPouzivatelDao().
+                    getByLogin(pouzivatelFxModel.getLogin()) != null) {
+                hlaskaLabel.textProperty().set("Používateľ s takýmto loginom už existuje");
+                hesloPasswordField.clear();
+                overenieHeslaPasswordField.clear();
+            } else {
+                Pouzivatel pouzivatel = new Pouzivatel();
+                pouzivatel.setAdmin(false);
+                pouzivatel.setLogin(pouzivatelFxModel.getLogin());
+                pouzivatel.setEmail(pouzivatelFxModel.getEmail());
+                pouzivatel.setHeslo(pouzivatelFxModel.getHeslo());
+                DaoFactory.INSTANCE.getPouzivatelDao().saveNew(pouzivatel);
+                registrationButton.getScene().getWindow().hide();
             }
         });
     }
