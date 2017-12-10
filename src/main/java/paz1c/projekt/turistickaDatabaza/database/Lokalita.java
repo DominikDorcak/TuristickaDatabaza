@@ -12,6 +12,26 @@ public class Lokalita  {
     private String nazov;
     private long id;
     private String popis;
+
+   
+    /*private double suradnicaX;
+    private double suradnicaY;*/
+    
+    /* public double getSuradnicaX() {
+        return suradnicaX;
+    }
+
+    public void setSuradnicaX(double suradnicaX) {
+        this.suradnicaX = suradnicaX;
+    }
+
+    public double getSuradnicaY() {
+        return suradnicaY;
+    }
+
+    public void setSuradnicaY(double suradnicaY) {
+        this.suradnicaY = suradnicaY;
+    }*/
     
     private List<String> cestyKObrazkom = new ArrayList<>();
     private List<String> recenzie = new ArrayList<>();
