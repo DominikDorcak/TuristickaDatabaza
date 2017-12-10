@@ -1,14 +1,19 @@
 
 package paz1c.projekt.turistickaDatabaza.database;
 
+import java.time.LocalDateTime;
+
 
 
 
 public class Recenzia  {
     
     private long idLokality;
-    private long idPouzivatela;
+    private String loginPouzivatela;
     private String text;
+    private int hodnotenie;
+    private LocalDateTime datum;
+    
 
     
     public long getIdLokality() {
@@ -21,13 +26,13 @@ public class Recenzia  {
     }
 
     
-    public long getIdPouzivatela() {
-        return idPouzivatela;
+    public String getLoginPouzivatela() {
+        return loginPouzivatela;
     }
 
     
-    public void setIdPouzivatela(long idPouzivatela) {
-        this.idPouzivatela = idPouzivatela;
+    public void setLoginPouzivatela(String LoginPouzivatela) {
+        this.loginPouzivatela = LoginPouzivatela;
     }
 
     
@@ -38,6 +43,22 @@ public class Recenzia  {
     
     public void setText(String text) {
         this.text = text;
+    }
+
+    public int getHodnotenie() {
+        return hodnotenie;
+    }
+
+    public void setHodnotenie(int hodnotenie) {
+        this.hodnotenie = hodnotenie;
+    }
+
+    public LocalDateTime getDatum() {
+        return datum;
+    }
+
+    public void setDatum(LocalDateTime datum) {
+        this.datum = datum;
     }
     
     

@@ -34,7 +34,7 @@ public class Lokalita  {
     }*/
     
     private List<Long> obrazky = new ArrayList<>();
-    private List<Long> recenzie = new ArrayList<>();
+    private List<Recenzia> recenzie = new ArrayList<>();
     
     private boolean schvalena;
 
@@ -92,12 +92,12 @@ public class Lokalita  {
     }
 
    
-    public List<Long> getRecenzie() {
+    public List<Recenzia> getRecenzie() {
         return recenzie;
     }
 
    
-    public void setRecenzie(List<Long> recenzie) {
+    public void setRecenzie(List<Recenzia> recenzie) {
         this.recenzie = recenzie;
     }
 

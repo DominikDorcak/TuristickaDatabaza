@@ -3,6 +3,7 @@ package paz1c.projekt.turistickaDatabaza.database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.dao.DataAccessException;
@@ -85,6 +86,26 @@ public class MysqlLokalitaDao {
         });  
     }
     
+    public void fillRecenzie(Lokalita lokalita){
+        String query = "Select lokalita_id,pouzivatel_login,text,datum,hodnotenie from recenzia "
+                + "where lokalita_id = "+lokalita.getId() + ";";
+        lokalita.setRecenzie(jdbcTemplate.query(query, (ResultSet rs) -> {
+            List<Recenzia> recenzie = new ArrayList<>();
+            while(rs.next()){
+                Recenzia recenzia = new Recenzia();
+                recenzia.setIdLokality(lokalita.getId());
+                recenzia.setLoginPouzivatela(rs.getString("pouzivatel_login"));
+                recenzia.setText(rs.getString("text"));
+                recenzia.setHodnotenie(rs.getInt("hodnotenie"));
+                recenzia.setDatum(LocalDateTime.MAX);//TODO formatovanie datumu
+                
+            }
+            return recenzie;
+        }));
+    
+    }
+    
+    
     public Lokalita getById(Long id){
         List<Lokalita> lokality = getSchvalena();
         lokality.addAll(getNaSchvalenie());
@@ -96,5 +117,8 @@ public class MysqlLokalitaDao {
         return null;
     }
     
-    
+    public void saveNew(Lokalita l){
+        String query = "insert into lokalita(Nazov,popis,region,schvalena) Values (?,?,?,0);";
+        jdbcTemplate.update(query,l.getNazov(),l.getPopis(),l.getRegion());
+    }
 }
