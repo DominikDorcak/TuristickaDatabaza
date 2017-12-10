@@ -33,8 +33,8 @@ public class Lokalita  {
         this.suradnicaY = suradnicaY;
     }*/
     
-    private List<String> cestyKObrazkom = new ArrayList<>();
-    private List<String> recenzie = new ArrayList<>();
+    private List<Long> obrazky = new ArrayList<>();
+    private List<Long> recenzie = new ArrayList<>();
     
     private boolean schvalena;
 
@@ -81,23 +81,23 @@ public class Lokalita  {
 
     
     
-    public List<String> getCestyKObrazkom() {
-        return cestyKObrazkom;
+    public List<Long> getObrazky() {
+        return obrazky;
     }
 
     
     
-    public void setCestyKObrazkom(List<String> cestyKObrazkom) {
-        this.cestyKObrazkom = cestyKObrazkom;
+    public void setObrazky(List<Long> obrazky) {
+        this.obrazky = obrazky;
     }
 
    
-    public List<String> getRecenzie() {
+    public List<Long> getRecenzie() {
         return recenzie;
     }
 
    
-    public void setRecenzie(List<String> recenzie) {
+    public void setRecenzie(List<Long> recenzie) {
         this.recenzie = recenzie;
     }
 

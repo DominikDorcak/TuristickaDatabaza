@@ -11,7 +11,7 @@ public class Pouzivatel {
    private String heslo;
    private String email;
    private boolean admin = false;
-   private List<String> oblubene = new ArrayList();
+   private List<Long> oblubene = new ArrayList();
 
 
     
@@ -48,11 +48,11 @@ public class Pouzivatel {
         this.admin = admin;
     }
 
-    public List<String> getOblubene() {
+    public List<Long> getOblubene() {
         return oblubene;
     }
 
-    public void setOblubene(List<String> oblubene) {
+    public void setOblubene(List<Long> oblubene) {
         this.oblubene = oblubene;
     }
    
