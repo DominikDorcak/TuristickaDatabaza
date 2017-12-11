@@ -1,7 +1,8 @@
 
 package paz1c.projekt.turistickaDatabaza.database;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
+
 
 
 
@@ -12,7 +13,7 @@ public class Recenzia  {
     private String loginPouzivatela;
     private String text;
     private int hodnotenie;
-    private LocalDateTime datum;
+    private Timestamp datum;
     
 
     
@@ -52,12 +53,12 @@ public class Recenzia  {
     public void setHodnotenie(int hodnotenie) {
         this.hodnotenie = hodnotenie;
     }
-
-    public LocalDateTime getDatum() {
+ 
+    public Timestamp getDatum() {
         return datum;
     }
 
-    public void setDatum(LocalDateTime datum) {
+    public void setDatum(Timestamp datum) {
         this.datum = datum;
     }
     

@@ -32,10 +32,7 @@ public class AddLocationController{
     private TextArea popisTextField;
     @FXML
     private Button CancelButton;
-    @FXML
-    private TextField suradnicaXTextField;
-    @FXML
-    private TextField suradnicaYTextField;
+    
     @FXML
     private TextField suborTextField;
 
@@ -62,7 +59,7 @@ public class AddLocationController{
         lokalita.setNazov(lokalitaFxModel.getNazov());
         lokalita.setRegion(lokalitaFxModel.getRegion());
         lokalita.setPopis(lokalitaFxModel.getPopis());
-      //  DaoFactory.INSTANCE.getLokalitaDao().saveNew(lokalita); 
+        DaoFactory.INSTANCE.getLokalitaDao().saveNew(lokalita); 
         CreateLocationButton.getScene().getWindow().hide();
         });
         

@@ -32,5 +32,8 @@ public enum DaoFactory {
     public LokalitaDao getLokalitaDao(){ 
         return new MysqlLokalitaDao(getJDBCTemplate());
     }
+    public RecenziaDao getRecenziaDao(){
+        return new MysqlRecenziaDao(getJDBCTemplate());
+    }
     
 }
