@@ -19,7 +19,7 @@ import paz1c.projekt.turistickaDatabaza.models.LokalitaFxModel;
  *
  * @author Michal
  */
-public class AddLocationController{
+class AddLocationController{
     private LokalitaFxModel lokalitaFxModel = new LokalitaFxModel();
     
     @FXML
@@ -37,7 +37,7 @@ public class AddLocationController{
     private TextField suborTextField;
 
     @FXML
-    public void initialize() {
+    void initialize() {
         nazovTextField.textProperty().bindBidirectional(lokalitaFxModel.nazovProperty());
         regionTextField.textProperty().bindBidirectional(lokalitaFxModel.regionProperty());
         popisTextField.textProperty().bindBidirectional(lokalitaFxModel.popisProperty());

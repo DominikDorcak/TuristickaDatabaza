@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="339.0" prefWidth="474.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="339.0" prefWidth="474.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label alignment="TOP_CENTER" layoutX="2.0" layoutY="14.0" prefHeight="26.0" prefWidth="474.0" text="Prihlásenie" textAlignment="CENTER" textFill="#200575" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="20.0">
          <font>
@@ -17,9 +17,9 @@
       <Label layoutX="150.0" layoutY="109.0" text="Login:" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="110.0" />
       <Label layoutX="149.0" layoutY="187.0" text="Heslo:" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="170.0" />
       <TextField fx:id="loginTextField" layoutX="152.0" layoutY="137.0" prefHeight="26.0" prefWidth="179.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="130.0" />
+      <PasswordField fx:id="hesloPasswordField" layoutX="150.0" layoutY="197.0" prefHeight="26.0" prefWidth="179.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="190.0" />
       <Button fx:id="loginButton" layoutX="82.0" layoutY="285.0" mnemonicParsing="false" text="Prihlásiť sa!" AnchorPane.leftAnchor="80.0" />
       <Button fx:id="registraciaButton" layoutX="333.0" layoutY="285.0" mnemonicParsing="false" text="Registrovať!" AnchorPane.rightAnchor="80.0" />
-      <PasswordField fx:id="hesloPasswordField" layoutX="150.0" layoutY="197.0" prefHeight="26.0" prefWidth="179.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="190.0" />
       <Label fx:id="chybaLabel" layoutX="152.0" layoutY="228.0" textFill="RED" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="230.0" />
       <Label fx:id="hlaskaLabel" layoutX="152.0" layoutY="238.0" textFill="LIME" />
    </children>

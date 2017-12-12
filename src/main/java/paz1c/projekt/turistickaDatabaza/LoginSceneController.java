@@ -55,9 +55,13 @@ class LoginSceneController {
             if(pouzivatel != null){
                 if(pouzivatelModel.getHeslo().equals(pouzivatel.getHeslo())){
                     System.out.println("vyslo to!!");
+                    loginButton.getScene().getWindow().hide();
+                    mainScene();
                 }
             }else{
                 chybaLabel.textProperty().set("Žiaden používateľ s daným loginom!");
+              //    loginButton.getScene().getWindow().hide();
+              //      mainScene();
             }
         });
         
@@ -88,5 +92,26 @@ class LoginSceneController {
             }
         });
 
+    }
+    //samostatna metoda na spustenie mainScene - sprehladnenie kodu
+    private void mainScene(){
+        
+        try {
+            MainSceneController controller = new MainSceneController();
+               FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("MainScene.fxml"));
+                loader.setController(controller);
+
+                Parent parentPane = loader.load();
+                Scene scene = new Scene(parentPane);
+
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("Turistická daatabáza");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+            } catch (IOException iOException) {
+                iOException.printStackTrace();
+            }
     }
 }
