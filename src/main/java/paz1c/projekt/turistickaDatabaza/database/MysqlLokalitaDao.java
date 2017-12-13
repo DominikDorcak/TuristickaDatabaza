@@ -3,7 +3,6 @@ package paz1c.projekt.turistickaDatabaza.database;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.dao.DataAccessException;
@@ -46,7 +45,7 @@ public class MysqlLokalitaDao implements LokalitaDao {
                         lokality.add(lokalita);
                     }
                     Long obrazokId = rs.getLong("obrazok_id");
-                    if (obrazokId != 0) {
+                    if (lokalita != null && obrazokId != 0) {
                         lokalita.getObrazky().add(obrazokId);
                     }
 
@@ -79,7 +78,7 @@ public class MysqlLokalitaDao implements LokalitaDao {
                         lokality.add(lokalita);
                     }
                     Long obrazokId = rs.getLong("obrazok_id");
-                    if (obrazokId != 0) {
+                    if (lokalita != null && obrazokId != 0) {
                         lokalita.getObrazky().add(obrazokId);
                     }
 
@@ -91,7 +90,7 @@ public class MysqlLokalitaDao implements LokalitaDao {
 
     @Override
     public void fillRecenzie(Lokalita lokalita) {
-        String query = "Select lokalita_id,pouzivatel_login,text,datum,hodnotenie from recenzia "
+        String query = "Select lokalita_id,pouzivatel_login,text,datum,hodnotenie from Recenzia "
                 + "where lokalita_id = " + lokalita.getId() + ";";
         lokalita.setRecenzie(jdbcTemplate.query(query, new ResultSetExtractor<List<Recenzia>>() {
             @Override
@@ -127,7 +126,7 @@ public class MysqlLokalitaDao implements LokalitaDao {
 
     @Override
     public void saveNew(Lokalita l) {
-        String query = "insert into lokalita(Nazov,popis,region,schvalena) Values (?,?,?,0);";
+        String query = "insert into Lokalita(Nazov,popis,region,schvalena) Values (?,?,?,0);";
         jdbcTemplate.update(query, l.getNazov(), l.getPopis(), l.getRegion());
     }
 }

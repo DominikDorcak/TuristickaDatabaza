@@ -17,6 +17,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import paz1c.projekt.turistickaDatabaza.database.Pouzivatel;
+import paz1c.projekt.turistickaDatabaza.models.LokalitaFxModel;
 
 /**
  * FXML Controller class
@@ -24,6 +26,10 @@ import javafx.stage.Stage;
  * @author Michal
  */
 class MainSceneController{
+    
+    private Pouzivatel prihlaseneyPouzivatel;
+    
+    private LokalitaFxModel
 
     @FXML
     private ListView<?> lokacieListView;
@@ -37,6 +43,10 @@ class MainSceneController{
     private ChoiceBox<?> zoraditChoiceBox;
     @FXML
     private Button zoraditButton;
+
+    MainSceneController(Pouzivatel prihlasenyPouzivatel) {
+        this.prihlaseneyPouzivatel = prihlasenyPouzivatel;
+    }
 
 
     @FXML
@@ -53,7 +63,7 @@ class MainSceneController{
 
                 Stage stage = new Stage();
                 stage.setScene(scene);
-                stage.setTitle("Turistická daatabáza");
+                stage.setTitle("Turistická daatabáza: nová lokalita ");
                 stage.initModality(Modality.WINDOW_MODAL);
                 stage.showAndWait();
             } catch (IOException iOException) {

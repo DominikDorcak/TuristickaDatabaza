@@ -54,14 +54,16 @@ class LoginSceneController {
             Pouzivatel pouzivatel = DaoFactory.INSTANCE.getPouzivatelDao().getByLogin(pouzivatelModel.getLogin());
             if(pouzivatel != null){
                 if(pouzivatelModel.getHeslo().equals(pouzivatel.getHeslo())){
-                    System.out.println("vyslo to!!");
                     loginButton.getScene().getWindow().hide();
-                    mainScene();
+                    mainScene(pouzivatel);
+                }else{
+                  chybaLabel.textProperty().set("Nesprávne heslo!");
+                  hesloPasswordField.clear();
                 }
             }else{
                 chybaLabel.textProperty().set("Žiaden používateľ s daným loginom!");
-              //    loginButton.getScene().getWindow().hide();
-              //      mainScene();
+                hesloPasswordField.clear();
+           
             }
         });
         
@@ -94,12 +96,12 @@ class LoginSceneController {
 
     }
     //samostatna metoda na spustenie mainScene - sprehladnenie kodu
-    private void mainScene(){
+    private void mainScene(Pouzivatel prihlasenyPouzivatel){
         
         try {
-            MainSceneController controller = new MainSceneController();
+            MainSceneController controller = new MainSceneController(prihlasenyPouzivatel);
                FXMLLoader loader = new FXMLLoader(
-                        getClass().getResource("MainScene.fxml"));
+                getClass().getResource("MainScene.fxml"));
                 loader.setController(controller);
 
                 Parent parentPane = loader.load();
@@ -107,9 +109,12 @@ class LoginSceneController {
 
                 Stage stage = new Stage();
                 stage.setScene(scene);
-                stage.setTitle("Turistická daatabáza");
+                stage.setTitle("Turistická databáza: Hlavné menu");
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
+                //po odhlaseni
+                hesloPasswordField.clear();
+                loginTextField.clear();
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }
