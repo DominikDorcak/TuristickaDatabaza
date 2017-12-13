@@ -11,22 +11,22 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="559.0" prefWidth="765.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="5.0" layoutY="5.0" text="Turistické lokácie:" />
-      <Button fx:id="pridatRecenziuButton" layoutX="422.0" layoutY="527.0" mnemonicParsing="false" text="Pridať recenziu" />
-      <Button fx:id="pridatLokaciuButton" layoutX="422.0" layoutY="497.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text="Pridať lokáciu" />
-      <Button fx:id="odhlasitButton" layoutX="682.0" layoutY="527.0" mnemonicParsing="false" text="Odhlásiť sa" />
-      <ChoiceBox fx:id="zoraditChoiceBox" layoutX="521.0" layoutY="466.0" prefHeight="25.0" prefWidth="240.0" />
-      <Button fx:id="zoraditButton" layoutX="422.0" layoutY="466.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text="Zoradiť" />
-      <ImageView fitHeight="313.0" fitWidth="313.0" layoutX="431.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      <Label layoutX="5.0" layoutY="5.0" text="Turistické lokácie:" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+      <Button fx:id="pridatLokaciuButton" layoutX="422.0" layoutY="497.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="130.0" text="Pridať lokáciu" AnchorPane.bottomAnchor="36.0" AnchorPane.rightAnchor="213.0" />
+      <Button fx:id="odhlasitButton" layoutX="664.0" layoutY="523.0" mnemonicParsing="false" text="Odhlásiť sa" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+      <ChoiceBox fx:id="zoraditChoiceBox" layoutX="521.0" layoutY="466.0" prefHeight="25.0" prefWidth="240.0" AnchorPane.bottomAnchor="67.0" AnchorPane.rightAnchor="4.0" />
+      <Button fx:id="zoraditButton" layoutX="422.0" layoutY="466.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" text="Zoradiť" AnchorPane.bottomAnchor="67.0" AnchorPane.rightAnchor="247.0" />
+      <ImageView fitHeight="313.0" fitWidth="313.0" layoutX="431.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="47.0">
          <image>
             <Image url="@../data/Turistika.png" />
          </image>
       </ImageView>
-      <TableView fx:id="lokality_table" layoutX="5.0" layoutY="22.0" prefHeight="532.0" prefWidth="414.0">
+      <TableView fx:id="lokality_table" layoutX="5.0" layoutY="22.0" prefHeight="532.0" prefWidth="414.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="345.0" AnchorPane.topAnchor="30.0">
         <columns>
           <TableColumn prefWidth="75.0" text="C1" />
           <TableColumn prefWidth="75.0" text="C2" />
         </columns>
       </TableView>
+      <Label fx:id="prihlasenyAkoLabel" layoutX="632.0" layoutY="13.0" text="Prihlásený ako:..." AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
    </children>
 </AnchorPane>

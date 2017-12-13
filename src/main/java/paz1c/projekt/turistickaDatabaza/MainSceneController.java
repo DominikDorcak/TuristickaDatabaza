@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -25,16 +26,12 @@ import paz1c.projekt.turistickaDatabaza.models.LokalitaFxModel;
  *
  * @author Michal
  */
-class MainSceneController{
-    
+class MainSceneController {
+
     private Pouzivatel prihlaseneyPouzivatel;
-    
-   
 
     @FXML
     private ListView<?> lokacieListView;
-    @FXML
-    private Button pridatRecenziuButton;
     @FXML
     private Button pridatLokaciuButton;
     @FXML
@@ -43,16 +40,19 @@ class MainSceneController{
     private ChoiceBox<?> zoraditChoiceBox;
     @FXML
     private Button zoraditButton;
+    @FXML
+    private Label prihlasenyAkoLabel;
 
     MainSceneController(Pouzivatel prihlasenyPouzivatel) {
         this.prihlaseneyPouzivatel = prihlasenyPouzivatel;
     }
 
-
     @FXML
     void initialize() {
-        pridatLokaciuButton.setOnAction(eh ->{
-        try {
+        prihlasenyAkoLabel.textProperty().set("Prihlásený ako: " + prihlaseneyPouzivatel.getLogin());
+        
+        pridatLokaciuButton.setOnAction(eh -> {
+            try {
                 AddLocationController controller = new AddLocationController();
                 FXMLLoader loader = new FXMLLoader(
                         getClass().getResource("AddLocation.fxml"));
@@ -70,7 +70,7 @@ class MainSceneController{
                 iOException.printStackTrace();
             }
         });
-        
-    }    
-    
+
+    }
+
 }
