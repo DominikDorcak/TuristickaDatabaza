@@ -5,22 +5,35 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="339.0" prefWidth="474.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="345.0" prefWidth="474.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label alignment="TOP_CENTER" layoutX="2.0" layoutY="14.0" prefHeight="26.0" prefWidth="474.0" text="Prihlásenie" textAlignment="CENTER" textFill="#200575" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="20.0">
          <font>
             <Font size="21.0" />
          </font>
       </Label>
-      <Label layoutX="150.0" layoutY="109.0" text="Login:" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="110.0" />
-      <Label layoutX="149.0" layoutY="187.0" text="Heslo:" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="170.0" />
-      <TextField fx:id="loginTextField" layoutX="152.0" layoutY="137.0" prefHeight="26.0" prefWidth="179.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="130.0" />
-      <PasswordField fx:id="hesloPasswordField" layoutX="150.0" layoutY="197.0" prefHeight="26.0" prefWidth="179.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="190.0" />
-      <Button fx:id="loginButton" layoutX="82.0" layoutY="285.0" mnemonicParsing="false" text="Prihlásiť sa!" AnchorPane.leftAnchor="80.0" />
-      <Button fx:id="registraciaButton" layoutX="333.0" layoutY="285.0" mnemonicParsing="false" text="Registrovať!" AnchorPane.rightAnchor="80.0" />
-      <Label fx:id="chybaLabel" layoutX="152.0" layoutY="228.0" textFill="RED" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="230.0" />
-      <Label fx:id="hlaskaLabel" layoutX="152.0" layoutY="238.0" textFill="LIME" />
+      <Label fx:id="chybaLabel" alignment="CENTER" layoutX="2.0" layoutY="228.0" prefHeight="16.0" prefWidth="464.0" textFill="RED" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="210.0" />
+      <Label fx:id="hlaskaLabel" alignment="CENTER" layoutX="1.0" layoutY="238.0" prefHeight="16.0" prefWidth="474.0" textFill="LIME" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="210.0" />
+      <HBox alignment="TOP_CENTER" layoutX="14.0" layoutY="46.0" prefHeight="26.0" prefWidth="454.0" spacing="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="130.0">
+         <children>
+            <Label alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" text="Login:" HBox.hgrow="ALWAYS" />
+            <TextField fx:id="loginTextField" prefHeight="26.0" prefWidth="179.0" />
+         </children>
+      </HBox>
+      <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="179.0" prefHeight="26.0" prefWidth="454.0" spacing="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="170.0">
+         <children>
+            <Label text="Heslo:" />
+            <PasswordField fx:id="hesloPasswordField" prefHeight="26.0" prefWidth="179.0" />
+         </children>
+      </HBox>
+      <HBox alignment="TOP_CENTER" layoutX="16.0" layoutY="320.0" prefHeight="26.0" prefWidth="454.0" spacing="150.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+         <children>
+            <Button fx:id="loginButton" mnemonicParsing="false" text="Prihlásiť sa!" />
+            <Button fx:id="registraciaButton" mnemonicParsing="false" text="Registrovať!" />
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

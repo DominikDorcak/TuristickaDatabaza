@@ -29,7 +29,7 @@ class MainSceneController{
     
     private Pouzivatel prihlaseneyPouzivatel;
     
-    private LokalitaFxModel
+   
 
     @FXML
     private ListView<?> lokacieListView;

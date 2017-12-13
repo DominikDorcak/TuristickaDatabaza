@@ -26,6 +26,7 @@ class LoginSceneController {
     @FXML
     private URL location;
 
+       
     @FXML
     private TextField loginTextField;
 
@@ -46,12 +47,15 @@ class LoginSceneController {
 
     @FXML
     void initialize() {
+        
         loginTextField.textProperty().bindBidirectional(pouzivatelModel.loginProperty());
         
         hesloPasswordField.textProperty().bindBidirectional(pouzivatelModel.hesloProperty());
         
         loginButton.setOnAction(eh -> {
             Pouzivatel pouzivatel = DaoFactory.INSTANCE.getPouzivatelDao().getByLogin(pouzivatelModel.getLogin());
+            hlaskaLabel.textProperty().set(null);
+            chybaLabel.textProperty().set(null);
             if(pouzivatel != null){
                 if(pouzivatelModel.getHeslo().equals(pouzivatel.getHeslo())){
                     loginButton.getScene().getWindow().hide();
@@ -69,7 +73,8 @@ class LoginSceneController {
         
         
         registraciaButton.setOnAction(eh ->{
-        RegistrationSceneController controller = 
+            chybaLabel.textProperty().set(null);
+            RegistrationSceneController controller = 
                     new RegistrationSceneController();
             try {
                 FXMLLoader loader = new FXMLLoader(
