@@ -15,11 +15,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import paz1c.projekt.turistickaDatabaza.database.Lokalita;
 import paz1c.projekt.turistickaDatabaza.database.Pouzivatel;
 import paz1c.projekt.turistickaDatabaza.models.LokalitaFxModel;
+import paz1c.projekt.turistickaDatabaza.models.LokalitaTableFxModel;
 
 /**
  * FXML Controller class
@@ -29,17 +33,23 @@ import paz1c.projekt.turistickaDatabaza.models.LokalitaFxModel;
 class MainSceneController {
 
     private Pouzivatel prihlaseneyPouzivatel;
+    private LokalitaTableFxModel lokalitaTableFxModel = new LokalitaTableFxModel();
 
     @FXML
-    private ListView<?> lokacieListView;
-    @FXML
     private Button pridatLokaciuButton;
+
     @FXML
     private Button odhlasitButton;
+
     @FXML
-    private ChoiceBox<?> zoraditChoiceBox;
+    private Button nacitajOblubeneButton;
+
     @FXML
-    private Button zoraditButton;
+    private Button nacitajVsetkyButton;
+
+    @FXML
+    private TableView<Lokalita> lokality_table;
+
     @FXML
     private Label prihlasenyAkoLabel;
 
@@ -50,7 +60,7 @@ class MainSceneController {
     @FXML
     void initialize() {
         prihlasenyAkoLabel.textProperty().set("Prihlásený ako: " + prihlaseneyPouzivatel.getLogin());
-        
+
         pridatLokaciuButton.setOnAction(eh -> {
             try {
                 AddLocationController controller = new AddLocationController();
@@ -71,6 +81,30 @@ class MainSceneController {
             }
         });
 
+        lokality_table.getColumns().clear();
+        TableColumn nazovCol = new TableColumn("Lokalita");
+        nazovCol.setCellValueFactory(new PropertyValueFactory<Lokalita, String>("nazov"));
+        lokality_table.getColumns().add(nazovCol);
+        TableColumn regionCol = new TableColumn("Región");
+        regionCol.setCellValueFactory(new PropertyValueFactory<Lokalita, String>("region"));
+        lokality_table.getColumns().add(regionCol);
+
+        lokalitaTableFxModel.loadAll();
+        lokality_table.setItems(lokalitaTableFxModel.getLokality());
+
+        nacitajOblubeneButton.setOnAction(eh -> {
+            lokalitaTableFxModel.loadOblubene(prihlaseneyPouzivatel);
+            lokality_table.setItems(lokalitaTableFxModel.getLokality());
+        });
+
+        nacitajVsetkyButton.setOnAction(eh -> {
+            lokalitaTableFxModel.loadAll();
+            lokality_table.setItems(lokalitaTableFxModel.getLokality());
+        });
+
+        odhlasitButton.setOnAction(eh -> {
+            odhlasitButton.getScene().getWindow().hide();
+        });
     }
 
 }

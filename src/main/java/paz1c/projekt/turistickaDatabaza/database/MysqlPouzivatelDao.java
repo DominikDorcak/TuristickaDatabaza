@@ -85,9 +85,10 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
                         }
                         pouzivatelia.add(pouzivatel);
                     }
-                    Long lokalita = rs.getLong("Lokalita_id");
-                    if(lokalita != 0)
-                        pouzivatel.getOblubene().add(lokalita);
+                    Long lokalitaId = rs.getLong("Lokalita_id");
+                    if(lokalitaId != 0)
+                        pouzivatel.getOblubene().add(
+                                DaoFactory.INSTANCE.getLokalitaDao().getById(lokalitaId));
                     
                 }
                 return pouzivatelia;
