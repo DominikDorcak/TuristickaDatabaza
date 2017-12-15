@@ -1,4 +1,3 @@
-
 package paz1c.projekt.turistickaDatabaza.database;
 
 import java.util.List;
@@ -18,5 +17,5 @@ public interface LokalitaDao {
     List<Lokalita> getSchvalena();
 
     void saveNew(Lokalita l);
-    
+
 }

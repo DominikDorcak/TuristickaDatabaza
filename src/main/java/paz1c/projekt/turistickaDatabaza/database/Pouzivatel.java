@@ -1,20 +1,15 @@
-
 package paz1c.projekt.turistickaDatabaza.database;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Pouzivatel {
-    
-   private String login;
-   private String heslo;
-   private String email;
-   private boolean admin = false;
-   private List<Lokalita> oblubene = new ArrayList();
 
-
-    
+    private String login;
+    private String heslo;
+    private String email;
+    private boolean admin = false;
+    private List<Lokalita> oblubene = new ArrayList();
 
     public String getLogin() {
         return login;
@@ -55,11 +50,5 @@ public class Pouzivatel {
     public void setOblubene(List<Lokalita> oblubene) {
         this.oblubene = oblubene;
     }
-   
-   
-   
-   
-   
-    
-    
+
 }

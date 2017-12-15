@@ -1,4 +1,3 @@
-
 package paz1c.projekt.turistickaDatabaza;
 
 import paz1c.projekt.turistickaDatabaza.database.*;
@@ -6,13 +5,12 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import paz1c.projekt.turistickaDatabaza.database.MysqlPouzivatelDao;
 
-
 public enum DaoFactory {
-    
+
     INSTANCE;
-    
+
     private JdbcTemplate jdbcTemplate;
-    
+
     private JdbcTemplate getJDBCTemplate() {
         if (jdbcTemplate == null) {
             MysqlDataSource dataSource = new MysqlDataSource();
@@ -25,15 +23,17 @@ public enum DaoFactory {
         }
         return jdbcTemplate;
     }
-    
-    public PouzivatelDao getPouzivatelDao(){
+
+    public PouzivatelDao getPouzivatelDao() {
         return new MysqlPouzivatelDao(getJDBCTemplate());
     }
-    public LokalitaDao getLokalitaDao(){ 
+
+    public LokalitaDao getLokalitaDao() {
         return new MysqlLokalitaDao(getJDBCTemplate());
     }
-    public RecenziaDao getRecenziaDao(){
+
+    public RecenziaDao getRecenziaDao() {
         return new MysqlRecenziaDao(getJDBCTemplate());
     }
-    
+
 }

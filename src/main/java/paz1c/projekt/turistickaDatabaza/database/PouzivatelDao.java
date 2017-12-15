@@ -1,8 +1,6 @@
-
 package paz1c.projekt.turistickaDatabaza.database;
 
 import java.util.List;
-
 
 public interface PouzivatelDao {
 
@@ -11,5 +9,5 @@ public interface PouzivatelDao {
     Pouzivatel getByLogin(String login);
 
     void saveNew(Pouzivatel pouzivatel);
-    
+
 }

@@ -12,5 +12,5 @@ package paz1c.projekt.turistickaDatabaza.database;
 public interface RecenziaDao {
 
     void save(Recenzia recenzia);
-    
+
 }

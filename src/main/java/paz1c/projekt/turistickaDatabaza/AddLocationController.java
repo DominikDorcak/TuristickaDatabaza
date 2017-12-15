@@ -19,9 +19,10 @@ import paz1c.projekt.turistickaDatabaza.models.LokalitaFxModel;
  *
  * @author Michal
  */
-class AddLocationController{
+class AddLocationController {
+
     private LokalitaFxModel lokalitaFxModel = new LokalitaFxModel();
-    
+
     @FXML
     private Button CreateLocationButton;
     @FXML
@@ -32,7 +33,7 @@ class AddLocationController{
     private TextArea popisTextField;
     @FXML
     private Button CancelButton;
-    
+
     @FXML
     private TextField suborTextField;
 
@@ -41,31 +42,31 @@ class AddLocationController{
         nazovTextField.textProperty().bindBidirectional(lokalitaFxModel.nazovProperty());
         regionTextField.textProperty().bindBidirectional(lokalitaFxModel.regionProperty());
         popisTextField.textProperty().bindBidirectional(lokalitaFxModel.popisProperty());
-        
-        CreateLocationButton.setOnAction(eh->{ 
-        if(nazovTextField.getText() == null){
-            nazovTextField.setText("Zadaj názov");
-            return;
-        }
-        if(regionTextField.getText() == null){
-            nazovTextField.setText("Zadaj región");
-            return;
-        }
-        if(popisTextField.getText() == null){
-            popisTextField.setText("Zadaj popis");
-            return;
-        }
-        Lokalita lokalita = new Lokalita();
-        lokalita.setNazov(lokalitaFxModel.getNazov());
-        lokalita.setRegion(lokalitaFxModel.getRegion());
-        lokalita.setPopis(lokalitaFxModel.getPopis());
-        DaoFactory.INSTANCE.getLokalitaDao().saveNew(lokalita); 
-        CreateLocationButton.getScene().getWindow().hide();
+
+        CreateLocationButton.setOnAction(eh -> {
+            if (nazovTextField.getText() == null) {
+                nazovTextField.setText("Zadaj názov");
+                return;
+            }
+            if (regionTextField.getText() == null) {
+                nazovTextField.setText("Zadaj región");
+                return;
+            }
+            if (popisTextField.getText() == null) {
+                popisTextField.setText("Zadaj popis");
+                return;
+            }
+            Lokalita lokalita = new Lokalita();
+            lokalita.setNazov(lokalitaFxModel.getNazov());
+            lokalita.setRegion(lokalitaFxModel.getRegion());
+            lokalita.setPopis(lokalitaFxModel.getPopis());
+            DaoFactory.INSTANCE.getLokalitaDao().saveNew(lokalita);
+            CreateLocationButton.getScene().getWindow().hide();
         });
-        
-        CancelButton.setOnAction(eh ->{
-        CancelButton.getScene().getWindow().hide();
+
+        CancelButton.setOnAction(eh -> {
+            CancelButton.getScene().getWindow().hide();
         });
-    }    
-    
+    }
+
 }

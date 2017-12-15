@@ -154,9 +154,10 @@ public class MysqlLokalitaDao implements LokalitaDao {
                 return lokality;
             }
         });
-    
-        if(list != null && !list.isEmpty())
+
+        if (list != null && !list.isEmpty()) {
             return list.get(0);
+        }
         return null;
     }
 

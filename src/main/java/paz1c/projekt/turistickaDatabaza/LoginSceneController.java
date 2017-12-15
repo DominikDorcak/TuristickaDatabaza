@@ -26,7 +26,6 @@ class LoginSceneController {
     @FXML
     private URL location;
 
-       
     @FXML
     private TextField loginTextField;
 
@@ -38,8 +37,8 @@ class LoginSceneController {
 
     @FXML
     private PasswordField hesloPasswordField;
-    
-     @FXML
+
+    @FXML
     private Label chybaLabel;
 
     @FXML
@@ -47,35 +46,33 @@ class LoginSceneController {
 
     @FXML
     void initialize() {
-        
+
         loginTextField.textProperty().bindBidirectional(pouzivatelModel.loginProperty());
-        
+
         hesloPasswordField.textProperty().bindBidirectional(pouzivatelModel.hesloProperty());
-        
+
         loginButton.setOnAction(eh -> {
             Pouzivatel pouzivatel = DaoFactory.INSTANCE.getPouzivatelDao().getByLogin(pouzivatelModel.getLogin());
             hlaskaLabel.textProperty().set(null);
             chybaLabel.textProperty().set(null);
-            if(pouzivatel != null){
-                if(pouzivatelModel.getHeslo().equals(pouzivatel.getHeslo())){
-                    loginButton.getScene().getWindow().hide();
+            if (pouzivatel != null) {
+                if (pouzivatelModel.getHeslo().equals(pouzivatel.getHeslo())) {
                     mainScene(pouzivatel);
-                }else{
-                  chybaLabel.textProperty().set("Nesprávne heslo!");
-                  hesloPasswordField.clear();
+                } else {
+                    chybaLabel.textProperty().set("Nesprávne heslo!");
+                    hesloPasswordField.clear();
                 }
-            }else{
+            } else {
                 chybaLabel.textProperty().set("Žiaden používateľ s daným loginom!");
                 hesloPasswordField.clear();
-           
+
             }
         });
-        
-        
-        registraciaButton.setOnAction(eh ->{
+
+        registraciaButton.setOnAction(eh -> {
             chybaLabel.textProperty().set(null);
-            RegistrationSceneController controller = 
-                    new RegistrationSceneController();
+            RegistrationSceneController controller
+                    = new RegistrationSceneController();
             try {
                 FXMLLoader loader = new FXMLLoader(
                         getClass().getResource("RegistrationScene.fxml"));
@@ -100,13 +97,37 @@ class LoginSceneController {
         });
 
     }
+
     //samostatna metoda na spustenie mainScene - sprehladnenie kodu
-    private void mainScene(Pouzivatel prihlasenyPouzivatel){
-        
-        try {
-            MainSceneController controller = new MainSceneController(prihlasenyPouzivatel);
-               FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("MainScene.fxml"));
+    private void mainScene(Pouzivatel prihlasenyPouzivatel) {
+        if (prihlasenyPouzivatel.isAdmin()) {
+            try {
+                MainSceneAdminController controller = new MainSceneAdminController(prihlasenyPouzivatel);
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("MainSceneAdmin.fxml"));
+                loader.setController(controller);
+
+                Parent parentPane = loader.load();
+                Scene scene = new Scene(parentPane);
+
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("Turistická databáza: Hlavné menu(administrátor)");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.showAndWait();
+                //po odhlaseni
+                hesloPasswordField.clear();
+                loginTextField.clear();
+                hlaskaLabel.textProperty().set("Odhlásenie úspešné");
+                chybaLabel.textProperty().set(null);
+            } catch (IOException iOException) {
+                iOException.printStackTrace();
+            }
+        } else {
+            try {
+                MainSceneController controller = new MainSceneController(prihlasenyPouzivatel);
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("MainScene.fxml"));
                 loader.setController(controller);
 
                 Parent parentPane = loader.load();
@@ -120,8 +141,11 @@ class LoginSceneController {
                 //po odhlaseni
                 hesloPasswordField.clear();
                 loginTextField.clear();
+                hlaskaLabel.textProperty().set("Odhlásenie úspešné");
+                chybaLabel.textProperty().set(null);
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }
+        }
     }
 }

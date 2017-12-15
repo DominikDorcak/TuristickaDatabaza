@@ -17,8 +17,8 @@ import paz1c.projekt.turistickaDatabaza.database.Pouzivatel;
  * @author dominik
  */
 public class LokalitaTableFxModel {
-    
-    private ObservableList<Lokalita>  lokality;
+
+    private ObservableList<Lokalita> lokality;
 
     public ObservableList<Lokalita> getLokality() {
         return lokality;
@@ -27,14 +27,19 @@ public class LokalitaTableFxModel {
     public void setLokality(ObservableList<Lokalita> lokality) {
         this.lokality = lokality;
     }
-    
-    public void loadAll(){
+
+    public void loadAll() {
         List<Lokalita> lok = DaoFactory.INSTANCE.getLokalitaDao().getSchvalena();
         setLokality(FXCollections.observableArrayList(lok));
     }
-    
-    public void loadOblubene(Pouzivatel prihlasenyPouzivatel){
+
+    public void loadOblubene(Pouzivatel prihlasenyPouzivatel) {
         List<Lokalita> lok = prihlasenyPouzivatel.getOblubene();
+        setLokality(FXCollections.observableArrayList(lok));
+    }
+
+    public void loadNaSchvalenie() {
+        List<Lokalita> lok = DaoFactory.INSTANCE.getLokalitaDao().getNaSchvalenie();
         setLokality(FXCollections.observableArrayList(lok));
     }
 }
