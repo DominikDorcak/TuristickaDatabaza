@@ -5,11 +5,13 @@
  */
 package paz1c.projekt.turistickaDatabaza;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import paz1c.projekt.turistickaDatabaza.database.Lokalita;
 import paz1c.projekt.turistickaDatabaza.database.Pouzivatel;
 import paz1c.projekt.turistickaDatabaza.models.PouzivatelTableFxModel;
@@ -21,6 +23,7 @@ import paz1c.projekt.turistickaDatabaza.models.PouzivatelTableFxModel;
 class UserManagementController {
 
     private PouzivatelTableFxModel pouzivatelTableFxModel = new PouzivatelTableFxModel();
+    private Pouzivatel vybranyPouzivatel;
 
     @FXML
     private TableView<Pouzivatel> Pouzivatelia_table;
@@ -45,7 +48,27 @@ class UserManagementController {
         Pouzivatelia_table.getColumns().add(adminCol);
         pouzivatelTableFxModel.naplnPouzivatelov();
         Pouzivatelia_table.setItems(pouzivatelTableFxModel.getPouzivatelia());
-
+        Pouzivatelia_table.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.isPrimaryButtonDown()){
+                    vybranyPouzivatel = Pouzivatelia_table.getSelectionModel().getSelectedItem();
+                }
+            }
+        });
+        
+        povysitButton.setOnAction(eh -> {
+           boolean uspech = DaoFactory.INSTANCE.getPouzivatelDao().povysByLogin(vybranyPouzivatel.getLogin());
+           pouzivatelTableFxModel.naplnPouzivatelov();
+           Pouzivatelia_table.setItems(pouzivatelTableFxModel.getPouzivatelia());
+        });
+        
+        vymazatPouzivatelaButton.setOnAction(eh ->{
+            boolean uspech = DaoFactory.INSTANCE.getPouzivatelDao().deleteByLogin(vybranyPouzivatel.getLogin());
+            pouzivatelTableFxModel.naplnPouzivatelov();
+            Pouzivatelia_table.setItems(pouzivatelTableFxModel.getPouzivatelia());
+        });
+            
         exitButton.setOnAction(eh -> {
             exitButton.getScene().getWindow().hide();
         });

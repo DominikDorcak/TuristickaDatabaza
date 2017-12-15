@@ -9,6 +9,16 @@ public class Lokalita {
     private String nazov;
     private long id;
     private String popis;
+    private double hodnotenie;
+
+    public double getHodnotenie() {
+        return hodnotenie;
+    }
+
+    public void setHodnotenie(double hodnotenie) {
+        this.hodnotenie = hodnotenie;
+    }
+    
 
     /*private double suradnicaX;
     private double suradnicaY;*/
@@ -86,6 +96,18 @@ public class Lokalita {
 
     public void setSchvalena(boolean schvalena) {
         this.schvalena = schvalena;
+    }
+    
+    public void PriemerneHodnotenie(){
+        List<Recenzia> rec = getRecenzie();
+        if(rec.isEmpty())
+            setHodnotenie(0.0);
+        double priemer = 0d;
+        for (Recenzia r: rec) {
+            priemer += r.getHodnotenie();
+        }
+        
+        setHodnotenie(priemer/rec.size());
     }
 
 }

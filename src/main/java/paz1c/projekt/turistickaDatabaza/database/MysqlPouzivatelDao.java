@@ -106,4 +106,26 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
 
     }
 
+    @Override
+    public boolean povysByLogin(String login) {
+        String query = "UPDATE TuristickaDatabaza.Pouzivatel set admin = 1 where login = '" + login + "';";
+        try {
+            int povysenych = jdbcTemplate.update(query);
+            return povysenych == 1;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
+    @Override
+    public boolean deleteByLogin(String login) {
+        String query = "Delete from TuristickaDatabaza.Pouzivatel where login = '" + login + "';";
+        try {
+            int zmazanych = jdbcTemplate.update(query);
+            return zmazanych == 1;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 }

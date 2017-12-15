@@ -9,5 +9,9 @@ public interface PouzivatelDao {
     Pouzivatel getByLogin(String login);
 
     void saveNew(Pouzivatel pouzivatel);
+    
+    boolean povysByLogin(String login);
+    
+    public boolean deleteByLogin(String login);
 
 }

@@ -89,6 +89,10 @@ public class MainSceneAdminController {
         TableColumn regionCol = new TableColumn("Región");
         regionCol.setCellValueFactory(new PropertyValueFactory<Lokalita, String>("region"));
         lokality_table.getColumns().add(regionCol);
+        TableColumn priemHodnCol = new TableColumn("Priemerné hodnotenie");
+        priemHodnCol.setMinWidth(200);
+        priemHodnCol.setCellValueFactory(new PropertyValueFactory<Lokalita, Double>("hodnotenie"));
+        lokality_table.getColumns().add(priemHodnCol);
 
         lokalitaTableFxModel.loadAll();
         lokality_table.setItems(lokalitaTableFxModel.getLokality());

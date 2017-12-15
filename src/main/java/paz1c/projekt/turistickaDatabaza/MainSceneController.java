@@ -8,6 +8,7 @@ package paz1c.projekt.turistickaDatabaza;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import paz1c.projekt.turistickaDatabaza.database.Lokalita;
@@ -73,7 +75,7 @@ class MainSceneController {
 
                 Stage stage = new Stage();
                 stage.setScene(scene);
-                stage.setTitle("Turistická daatabáza: nová lokalita ");
+                stage.setTitle("Turistická databáza: nová lokalita ");
                 stage.initModality(Modality.WINDOW_MODAL);
                 stage.showAndWait();
             } catch (IOException iOException) {
@@ -88,6 +90,38 @@ class MainSceneController {
         TableColumn regionCol = new TableColumn("Región");
         regionCol.setCellValueFactory(new PropertyValueFactory<Lokalita, String>("region"));
         lokality_table.getColumns().add(regionCol);
+        TableColumn priemHodnCol = new TableColumn("Priemerné hodnotenie");
+        priemHodnCol.setMinWidth(200);
+        priemHodnCol.setCellValueFactory(new PropertyValueFactory<Lokalita, Double>("hodnotenie"));
+        lokality_table.getColumns().add(priemHodnCol);
+        
+        lokality_table.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                    //odkomentovat/upravit po pridani okna na zobrazenie lokality + controllera
+                    /* Lokalita l = lokality_table.getSelectionModel().getSelectedItem();
+                    try {
+                    LokalitaSceneController controller = new LokalitaSceneController(l);
+                    FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("LokalitaScene.fxml"));
+                    loader.setController(controller);
+                    
+                    Parent parentPane = loader.load();
+                    Scene scene = new Scene(parentPane);
+                    
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.setTitle(l.getNazov());
+                    stage.initModality(Modality.WINDOW_MODAL);
+                    stage.showAndWait();
+                    } catch (IOException iOException) {
+                    iOException.printStackTrace();
+                    }
+                */}
+                }
+            
+        });
 
         lokalitaTableFxModel.loadAll();
         lokality_table.setItems(lokalitaTableFxModel.getLokality());
