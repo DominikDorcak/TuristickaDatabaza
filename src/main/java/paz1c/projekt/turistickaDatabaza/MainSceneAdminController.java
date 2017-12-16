@@ -116,7 +116,7 @@ public class MainSceneAdminController {
                     
                     Stage stage = new Stage();
                     stage.setScene(scene);
-                    stage.setTitle(l.getNazov());
+                    stage.setTitle("Turistická databáza: profil lokality ");
                     stage.initModality(Modality.WINDOW_MODAL);
                     stage.showAndWait();
                     } catch (IOException iOException) {

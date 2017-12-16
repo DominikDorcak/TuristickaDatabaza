@@ -16,10 +16,10 @@ public class MysqlRecenziaDao implements RecenziaDao {
 
     @Override
     public void save(Recenzia recenzia) {//TODO datumy!!
-        String query = "Insert into recenzia (pouzivatel_login, lokalita_id, hodnotenie, text)"
-                + "values(?,?,?,?)";
+        String query = "Insert into recenzia (pouzivatel_login, lokalita_id, hodnotenie, text,datum)"
+                + "values(?,?,?,?,?)";
 
-        jdbcTemplate.update(query, recenzia.getLoginPouzivatela(), recenzia.getIdLokality(), recenzia.getHodnotenie(), recenzia.getText());
+        jdbcTemplate.update(query, recenzia.getLoginPouzivatela(), recenzia.getIdLokality(), recenzia.getHodnotenie(), recenzia.getText(),recenzia.getDatum());
 
     }
 }

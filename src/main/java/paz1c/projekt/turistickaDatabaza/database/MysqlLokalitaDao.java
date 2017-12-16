@@ -102,7 +102,7 @@ public class MysqlLokalitaDao implements LokalitaDao {
                     recenzia.setLoginPouzivatela(rs.getString("pouzivatel_login"));
                     recenzia.setText(rs.getString("text"));
                     recenzia.setHodnotenie(rs.getInt("hodnotenie"));
-                    recenzia.setDatum(Timestamp.valueOf(rs.getString("datum")));
+                    recenzia.setDatum(rs.getTimestamp("datum"));
 
                 }
                 return recenzie;

@@ -1,10 +1,14 @@
 package paz1c.projekt.turistickaDatabaza;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import paz1c.projekt.turistickaDatabaza.database.Lokalita;
 import paz1c.projekt.turistickaDatabaza.database.Pouzivatel;
@@ -68,6 +72,25 @@ public class LocationSceneController {
         hodnotenie_label.textProperty().set("Priemerné Hodnotenie: " + vybranaLokalita.getHodnotenie());
         
         popis_label.textProperty().set(vybranaLokalita.getPopis());
+        
+        recenzie_table.getColumns().clear();
+        TableColumn pouzivatelCol = new TableColumn("Používateľ");
+        pouzivatelCol.setMinWidth(150);
+        pouzivatelCol.setCellValueFactory(new PropertyValueFactory<Recenzia, String>("loginPouzivatela"));
+        recenzie_table.getColumns().add(pouzivatelCol);
+        
+        TableColumn hodnotenieCol = new TableColumn("Hodnotenie");
+        hodnotenieCol.setMinWidth(150);
+        hodnotenieCol.setCellValueFactory(new PropertyValueFactory<Recenzia, Integer>("hodnotenie"));
+        recenzie_table.getColumns().add(hodnotenieCol);
+        
+        TableColumn textCol = new TableColumn("text recenzie");
+        textCol.setCellValueFactory(new PropertyValueFactory<Recenzia, String>("text"));
+        textCol.setMinWidth(300);
+        recenzie_table.getColumns().add(textCol);
+        
+        ObservableList<Recenzia> recenzie= FXCollections.observableArrayList(vybranaLokalita.getRecenzie());
+        recenzie_table.setItems(recenzie);
         
         schvalitButton.setVisible(!vybranaLokalita.isSchvalena());
         schvalitButton.setDisable(vybranaLokalita.isSchvalena());
