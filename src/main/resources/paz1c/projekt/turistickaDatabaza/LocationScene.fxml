@@ -2,21 +2,57 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="535.0" prefWidth="683.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paz1c.projekt.turistickaDatabaza.LocationSceneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="518.0" prefWidth="754.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="cancel_button" layoutX="603.0" layoutY="496.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="Zrušiť" />
-      <Label fx:id="Lokalita_label" layoutX="297.0" layoutY="26.0" prefHeight="36.0" prefWidth="90.0" text="Lokalita">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
-      <Label fx:id="region_label" layoutX="27.0" layoutY="89.0" text="Región" />
-      <Label fx:id="hodnotenie_label" layoutX="605.0" layoutY="89.0" text="Hodnotenie" textAlignment="RIGHT" />
-      <Label fx:id="popis_label" layoutX="27.0" layoutY="123.0" prefHeight="367.0" prefWidth="322.0" text="Popis" />
-      <Button fx:id="addReview_button" layoutX="14.0" layoutY="497.0" mnemonicParsing="false" text="Pridať recenziu" />
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="141.0" prefWidth="775.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <VBox alignment="TOP_CENTER" spacing="25.0">
+               <children>
+                  <Label fx:id="Lokalita_label" alignment="CENTER" prefHeight="36.0" prefWidth="668.0" text="Lokalita" textFill="BLUE">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="region_label" alignment="CENTER" prefHeight="19.0" prefWidth="676.0" text="Región">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="hodnotenie_label" alignment="CENTER" prefHeight="16.0" prefWidth="669.0" text="Hodnotenie" textAlignment="RIGHT">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="popis_label" alignment="TOP_CENTER" prefHeight="108.0" prefWidth="884.0" text="Popis" />
+                  <Label text="Recenzie:" />
+                  <TableView fx:id="recenzie_table" prefHeight="200.0" prefWidth="200.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="C1" />
+                      <TableColumn prefWidth="75.0" text="C2" />
+                    </columns>
+                  </TableView>
+                  <Button fx:id="pridatRecenziuButton" mnemonicParsing="false" text="Pridať recenziu" />
+                  <Label text="Obrázky:" />
+                  <VBox fx:id="obrazkyVbox" prefHeight="200.0" prefWidth="100.0" />
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                     <children>
+                        <Button fx:id="schvalitButton" mnemonicParsing="false" text="Schváliť" />
+                        <Button fx:id="pridatOblubenuButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="191.0" text="Pridať medzi obľúbené" />
+                        <Label fx:id="hlaskaLabel" text="Label" />
+                        <Button fx:id="cancel_button" mnemonicParsing="false" prefHeight="25.0" prefWidth="66.0" text="Odísť" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>

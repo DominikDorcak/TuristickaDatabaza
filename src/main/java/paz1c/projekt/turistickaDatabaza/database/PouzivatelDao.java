@@ -13,5 +13,7 @@ public interface PouzivatelDao {
     boolean povysByLogin(String login);
     
     public boolean deleteByLogin(String login);
+    
+    public boolean pridajOblubenu(Lokalita lokalita,Pouzivatel pouzivatel);
 
 }

@@ -10,6 +10,7 @@ package paz1c.projekt.turistickaDatabaza;
  * @author dominik
  */
 import java.io.IOException;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import paz1c.projekt.turistickaDatabaza.database.Lokalita;
@@ -96,6 +98,34 @@ public class MainSceneAdminController {
 
         lokalitaTableFxModel.loadAll();
         lokality_table.setItems(lokalitaTableFxModel.getLokality());
+        
+        lokality_table.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                    //odkomentovat/upravit po pridani okna na zobrazenie lokality + controllera
+                    Lokalita l = lokality_table.getSelectionModel().getSelectedItem();
+                    try {
+                    LocationSceneController controller = new LocationSceneController(l, prihlaseneyPouzivatel);
+                    FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("LocationScene.fxml"));
+                    loader.setController(controller);
+                    
+                    Parent parentPane = loader.load();
+                    Scene scene = new Scene(parentPane);
+                    
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.setTitle(l.getNazov());
+                    stage.initModality(Modality.WINDOW_MODAL);
+                    stage.showAndWait();
+                    } catch (IOException iOException) {
+                    iOException.printStackTrace();
+                    }
+                }
+                }
+            
+        });
 
         nacitajOblubeneButton.setOnAction(eh -> {
             lokalitaTableFxModel.loadOblubene(prihlaseneyPouzivatel);

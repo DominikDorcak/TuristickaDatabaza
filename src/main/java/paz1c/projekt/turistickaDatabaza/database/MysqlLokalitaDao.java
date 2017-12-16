@@ -166,4 +166,17 @@ public class MysqlLokalitaDao implements LokalitaDao {
         String query = "insert into Lokalita(Nazov,popis,region,schvalena) Values (?,?,?,0);";
         jdbcTemplate.update(query, l.getNazov(), l.getPopis(), l.getRegion());
     }
+    
+    @Override
+    public boolean schvalById(Long id){
+        String query = "update Lokalita set schvalena = 1 where id = "+id + ";";
+        try {
+            int schvalenych = jdbcTemplate.update(query);
+            return schvalenych == 1;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
+    
 }

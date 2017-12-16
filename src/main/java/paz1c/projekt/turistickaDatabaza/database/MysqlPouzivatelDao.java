@@ -84,7 +84,7 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
                         pouzivatelia.add(pouzivatel);
                     }
                     Long lokalitaId = rs.getLong("Lokalita_id");
-                    if (lokalitaId != 0) {
+                    if (lokalitaId > 0) {
                         pouzivatel.getOblubene().add(
                                 DaoFactory.INSTANCE.getLokalitaDao().getById(lokalitaId));
                     }
@@ -128,4 +128,16 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
         }
     }
 
+    @Override
+     public boolean pridajOblubenu(Lokalita lokalita,Pouzivatel pouzivatel) {
+         pouzivatel.getOblubene().add(lokalita);
+         String query = "Insert into Oblubene(Lokalita_id,Pouzivatel_login) values ("
+                +lokalita.getId()  + ",'" + pouzivatel.getLogin() +  "');";
+        try {
+            int pridanych = jdbcTemplate.update(query);
+            return pridanych == 1;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

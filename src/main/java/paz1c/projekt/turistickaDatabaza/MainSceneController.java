@@ -99,12 +99,11 @@ class MainSceneController {
             @Override
             public void handle(MouseEvent event) {
                 if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                    //odkomentovat/upravit po pridani okna na zobrazenie lokality + controllera
-                    /* Lokalita l = lokality_table.getSelectionModel().getSelectedItem();
+                     Lokalita l = lokality_table.getSelectionModel().getSelectedItem();
                     try {
-                    LokalitaSceneController controller = new LokalitaSceneController(l);
+                    LocationSceneController controller = new LocationSceneController(l, prihlaseneyPouzivatel);
                     FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("LokalitaScene.fxml"));
+                    getClass().getResource("LocationScene.fxml"));
                     loader.setController(controller);
                     
                     Parent parentPane = loader.load();
@@ -118,7 +117,7 @@ class MainSceneController {
                     } catch (IOException iOException) {
                     iOException.printStackTrace();
                     }
-                */}
+                }
                 }
             
         });

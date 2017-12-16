@@ -17,5 +17,7 @@ public interface LokalitaDao {
     List<Lokalita> getSchvalena();
 
     void saveNew(Lokalita l);
+    
+    public boolean schvalById(Long id);
 
 }
