@@ -119,6 +119,8 @@ public class MainSceneAdminController {
                     stage.setTitle("Turistická databáza: profil lokality ");
                     stage.initModality(Modality.WINDOW_MODAL);
                     stage.showAndWait();
+                    lokalitaTableFxModel.loadAll();
+                    lokality_table.setItems(lokalitaTableFxModel.getLokality());
                     } catch (IOException iOException) {
                     iOException.printStackTrace();
                     }

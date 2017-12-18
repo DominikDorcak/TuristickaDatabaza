@@ -100,14 +100,16 @@ public class Lokalita {
     
     public void PriemerneHodnotenie(){
         List<Recenzia> rec = getRecenzie();
-        if(rec.isEmpty())
+        if(rec.isEmpty()){
             setHodnotenie(0.0);
+        }else{
         double priemer = 0d;
         for (Recenzia r: rec) {
             priemer += r.getHodnotenie();
         }
         
         setHodnotenie(priemer/rec.size());
+        }
     }
 
 }

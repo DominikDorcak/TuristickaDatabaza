@@ -1,8 +1,13 @@
 package paz1c.projekt.turistickaDatabaza;
 
+import java.io.IOException;
+import java.sql.Timestamp;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -10,6 +15,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import paz1c.projekt.turistickaDatabaza.database.Lokalita;
 import paz1c.projekt.turistickaDatabaza.database.Pouzivatel;
 import paz1c.projekt.turistickaDatabaza.database.Recenzia;
@@ -89,8 +96,36 @@ public class LocationSceneController {
         textCol.setMinWidth(300);
         recenzie_table.getColumns().add(textCol);
         
+         TableColumn datumCol = new TableColumn("Čas pridania");
+        datumCol.setCellValueFactory(new PropertyValueFactory<Recenzia, Timestamp>("datum"));
+        datumCol.setMinWidth(200);
+        recenzie_table.getColumns().add(datumCol);
+        
         ObservableList<Recenzia> recenzie= FXCollections.observableArrayList(vybranaLokalita.getRecenzie());
         recenzie_table.setItems(recenzie);
+        
+         pridatRecenziuButton.setOnAction(eh -> {
+            try {
+                PridatRecenziuController controller = new PridatRecenziuController(prihlasenyPouzivatel, vybranaLokalita);
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("PridatRecenziu.fxml"));
+                loader.setController(controller);
+
+                Parent parentPane = loader.load();
+                Scene scene = new Scene(parentPane);
+
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("Turistická daatabáza: pridať recenziu ");
+                stage.initModality(Modality.WINDOW_MODAL);
+                stage.showAndWait();
+                ObservableList noveRecenzie= FXCollections.observableArrayList(vybranaLokalita.getRecenzie());
+                recenzie_table.setItems(noveRecenzie);
+                
+            } catch (IOException iOException) {
+                iOException.printStackTrace();
+            }
+        });
         
         schvalitButton.setVisible(!vybranaLokalita.isSchvalena());
         schvalitButton.setDisable(vybranaLokalita.isSchvalena());

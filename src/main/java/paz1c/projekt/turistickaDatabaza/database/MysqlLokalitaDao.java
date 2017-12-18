@@ -42,6 +42,7 @@ public class MysqlLokalitaDao implements LokalitaDao {
                         lokalita.setSchvalena(true);
                         lokalita.setPopis(rs.getString("popis"));
                         fillRecenzie(lokalita);
+                        lokalita.PriemerneHodnotenie();
                         lokality.add(lokalita);
                     }
                     Long obrazokId = rs.getLong("obrazok_id");
@@ -96,6 +97,7 @@ public class MysqlLokalitaDao implements LokalitaDao {
             @Override
             public List<Recenzia> extractData(ResultSet rs) throws SQLException, DataAccessException {
                 List<Recenzia> recenzie = new ArrayList<>();
+               
                 while (rs.next()) {
                     Recenzia recenzia = new Recenzia();
                     recenzia.setIdLokality(lokalita.getId());
@@ -103,6 +105,7 @@ public class MysqlLokalitaDao implements LokalitaDao {
                     recenzia.setText(rs.getString("text"));
                     recenzia.setHodnotenie(rs.getInt("hodnotenie"));
                     recenzia.setDatum(rs.getTimestamp("datum"));
+                    recenzie.add(recenzia);
 
                 }
                 return recenzie;
@@ -143,6 +146,7 @@ public class MysqlLokalitaDao implements LokalitaDao {
                         lokalita.setSchvalena(true);
                         lokalita.setPopis(rs.getString("popis"));
                         fillRecenzie(lokalita);
+                        lokalita.PriemerneHodnotenie();
                         lokality.add(lokalita);
                     }
                     Long obrazokId = rs.getLong("obrazok_id");
