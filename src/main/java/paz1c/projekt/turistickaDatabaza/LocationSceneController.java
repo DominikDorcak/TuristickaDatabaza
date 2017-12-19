@@ -115,6 +115,8 @@ public class LocationSceneController {
                 Scene scene = new Scene(parentPane);
 
                 Stage stage = new Stage();
+                stage.setMinHeight(400);
+                stage.setMinWidth(600);
                 stage.setScene(scene);
                 stage.setTitle("Turistická daatabáza: pridať recenziu ");
                 stage.initModality(Modality.WINDOW_MODAL);

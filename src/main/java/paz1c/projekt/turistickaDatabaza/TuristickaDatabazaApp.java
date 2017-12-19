@@ -16,8 +16,10 @@ public class TuristickaDatabazaApp extends Application {
 
         Parent parentPane = loader.load();
         Scene scene = new Scene(parentPane);
-
+        
         stage.setScene(scene);
+        stage.setMinHeight(345);
+        stage.setMinWidth(474);
         stage.setTitle("Turistická databáza: prihlásenie");
         stage.show();
     }
