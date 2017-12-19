@@ -34,7 +34,7 @@ public class LokalitaDaoTest {
 
     @Test
     public void fillRecenzieTest() {
-        // !!!! MISSING
+        // !!!! MISSING nepotrebny??
     }
 
     @Test
@@ -44,32 +44,32 @@ public class LokalitaDaoTest {
         l.setRegion("test");
         l.setPopis("test");
         dao.saveNew(l);
-        assertEquals(l, dao.getById(l.getId()));
+        assertNotNull(dao.getById(l.getId()));
+        dao.deleteById(l.getId());
     }
 
     @Test
     public void getNaSchvalenieTest() {
         List<Lokalita> list = dao.getNaSchvalenie();
         assertNotNull(list);
-        if (list != null) {
-            assertTrue(list.size() > 0);
-        }
+        
+        if (!list.isEmpty()){
         for (Lokalita l : list) {
             assertTrue(!l.isSchvalena());
+        }
         }
     }
 
     @Test
     public void getSchvalenaTest() {
-        List<Lokalita> list = dao.getSchvalena();
+        List<Lokalita> list = dao.getNaSchvalenie();
         assertNotNull(list);
-        if (list != null) {
-            assertTrue(list.size() > 0);
-        }
+        
+        if (!list.isEmpty()){
         for (Lokalita l : list) {
             assertTrue(l.isSchvalena());
         }
-
+        }
     }
 
     @Test
@@ -79,21 +79,38 @@ public class LokalitaDaoTest {
         l.setNazov("test");
         l.setRegion("test");
         l.setPopis("test");
-        dao.saveNew(l);
+        assertTrue(dao.saveNew(l));
         assertTrue(dao.getNaSchvalenie().size() == velkost+1);
+        dao.deleteById(l.getId());
     }
 
     @Test
     public void schvalByIdTest() {
         int velkostSchvalenych = dao.getSchvalena().size();
-        int velkostNaSchvalenie = dao.getNaSchvalenie().size();
         Lokalita l = new Lokalita();
         l.setNazov("test");
         l.setRegion("test");
         l.setPopis("test");
         dao.saveNew(l);
-        dao.schvalById(l.getId());
-        assertEquals(velkostSchvalenych+1,dao.getSchvalena());
-        assertEquals(velkostNaSchvalenie-1,dao.getNaSchvalenie());
+        int velkostNaSchvalenie = dao.getNaSchvalenie().size();
+        assertTrue(dao.schvalById(l.getId()));
+        assertTrue(velkostSchvalenych+1==dao.getSchvalena().size());
+        assertTrue(velkostNaSchvalenie-1==dao.getNaSchvalenie().size());
+        dao.deleteById(l.getId());
     }
+    
+    
+    
+    @Test
+    public void deleteByIdTest() {
+        int velkost = dao.getNaSchvalenie().size();
+        Lokalita l = new Lokalita();
+        l.setNazov("test");
+        l.setRegion("test");
+        l.setPopis("test");
+        dao.saveNew(l);
+        assertTrue(dao.deleteById(l.getId()));
+        assertTrue(velkost == dao.getNaSchvalenie().size());
+    }
+    
 }

@@ -38,18 +38,27 @@ public class PouzivatelDaoTest {
     }
     @Test
     public void getAllTest(){
+        
+        Pouzivatel p = new Pouzivatel();
+        p.setLogin("test");
+        p.setHeslo("test");
+        p.setEmail("test@test.sk");
+        dao.saveNew(p);
         List<Pouzivatel> list = dao.getAll();
-        assertNotNull(list);
-        if (list != null) {
-            assertTrue(list.size() > 0);
-        }
+        assertTrue(!list.isEmpty());
+        dao.deleteByLogin(p.getLogin());
+       
+        
     }
     @Test
     public void getByLoginTest(){
-        List<Pouzivatel> list = dao.getAll();
-        for (Pouzivatel p : list){
-            assertNotNull(dao.getByLogin(p.getLogin()));
-        }
+        Pouzivatel p = new Pouzivatel();
+        p.setLogin("test");
+        p.setHeslo("test");
+        p.setEmail("test@test.sk");
+        dao.saveNew(p);
+        assertNotNull(dao.getByLogin("test"));
+        dao.deleteByLogin("test");
         
     }
     
@@ -73,6 +82,7 @@ public class PouzivatelDaoTest {
         dao.saveNew(p);
         dao.povysByLogin("test");
         assertTrue(dao.getByLogin("test").isAdmin());
+        dao.deleteByLogin("test");
     }
     @Test
     public void deleteByLoginTest(){
@@ -100,6 +110,8 @@ public class PouzivatelDaoTest {
         l.setPopis("test");        
         dao.pridajOblubenu(l, p);
         
-        assertNotNull(p.getOblubene());
+        assertTrue(!p.getOblubene().isEmpty());
+        
+        dao.deleteByLogin("test");
     }
 }

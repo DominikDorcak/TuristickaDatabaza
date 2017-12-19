@@ -30,7 +30,7 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
                 Pouzivatel pouzivatel = null;
                 while (rs.next()) {
                     String pouzivatelLogin = rs.getString("login");
-                    if (pouzivatel == null || !(pouzivatel.getLogin().equals(pouzivatelLogin))) {
+                    if (pouzivatel == null || (!(pouzivatel.getLogin().equals(pouzivatelLogin)))) {
                         pouzivatel = new Pouzivatel();
                         pouzivatel.setLogin(pouzivatelLogin);
                         pouzivatel.setEmail(rs.getString("email"));
@@ -101,7 +101,7 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
 
     @Override
     public boolean saveNew(Pouzivatel pouzivatel) {
-        String query = "INSERT INTO TuristickaDatabaza.Pouzivatel(login,email,heslo,admin) VALUES (?,?,?,0)";
+        String query = "INSERT INTO Pouzivatel(login,email,heslo,admin) VALUES (?,?,?,0)";
         try {
             int ulozenych = jdbcTemplate.update(query, pouzivatel.getLogin(), 
                     pouzivatel.getEmail(), pouzivatel.getHeslo());
@@ -114,7 +114,7 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
 
     @Override
     public boolean povysByLogin(String login) {
-        String query = "UPDATE TuristickaDatabaza.Pouzivatel set admin = 1 where login = '" + login + "';";
+        String query = "UPDATE Pouzivatel set admin = 1 where login = '" + login + "';";
         try {
             int povysenych = jdbcTemplate.update(query);
             return povysenych == 1;
@@ -125,7 +125,7 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
     
     @Override
     public boolean deleteByLogin(String login) {
-        String query = "Delete from TuristickaDatabaza.Pouzivatel where login = '" + login + "';";
+        String query = "Delete from Pouzivatel where login = '" + login + "';";
         try {
             int zmazanych = jdbcTemplate.update(query);
             return zmazanych == 1;

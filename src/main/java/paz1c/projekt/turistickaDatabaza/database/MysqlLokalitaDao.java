@@ -131,15 +131,14 @@ public class MysqlLokalitaDao implements LokalitaDao {
                 + "from Lokalita l left outer join Obrazok o on o.Lokalita_id = l.id where l.id ="
                 + id + ";";
 
-        List<Lokalita> list = jdbcTemplate.query(query, new ResultSetExtractor<List<Lokalita>>() {
+        Lokalita lokalita = jdbcTemplate.query(query, new ResultSetExtractor<Lokalita>() {
             @Override
-            public List<Lokalita> extractData(ResultSet rs) throws SQLException, DataAccessException {
-                List<Lokalita> lokality = new ArrayList<>();
+            public Lokalita extractData(ResultSet rs) throws SQLException, DataAccessException {
                 Lokalita lokalita = null;
                 while (rs.next()) {
                     Long lokalitaId = rs.getLong("id");
                     int schvalena = rs.getInt("schvalena");
-                    if ((lokalita == null || !(lokalita.getId() == lokalitaId)) && schvalena == 1) {
+                    if ((lokalita == null || !(lokalita.getId() == lokalitaId))) {
                         lokalita = new Lokalita();
                         lokalita.setId(lokalitaId);
                         lokalita.setRegion(rs.getString("region"));
@@ -148,7 +147,7 @@ public class MysqlLokalitaDao implements LokalitaDao {
                         lokalita.setPopis(rs.getString("popis"));
                         fillRecenzie(lokalita);
                         lokalita.PriemerneHodnotenie();
-                        lokality.add(lokalita);
+                        
                     }
                     Long obrazokId = rs.getLong("obrazok_id");
                     if (lokalita != null && obrazokId != 0) {
@@ -156,14 +155,11 @@ public class MysqlLokalitaDao implements LokalitaDao {
                     }
 
                 }
-                return lokality;
+                return lokalita;
             }
         });
 
-        if (list != null && !list.isEmpty()) {
-            return list.get(0);
-        }
-        return null;
+        return lokalita;
     }
 
     @Override
@@ -174,6 +170,17 @@ public class MysqlLokalitaDao implements LokalitaDao {
         try {
             int ulozenych = jdbcTemplate.update(query, l.getNazov(),
                     l.getPopis(), l.getRegion());
+                    query = "Select id from Lokalita where nazov = '"
+                            + l.getNazov() + "';";
+                    
+                   l.setId(jdbcTemplate.query(query, new ResultSetExtractor<Long>() {
+                @Override
+                public Long extractData(ResultSet rs) throws SQLException, DataAccessException {
+                    rs.next();
+                    return rs.getLong("id");
+                }
+        
+        }));
             return ulozenych == 1;
         } catch (Exception e) {
             return false;
