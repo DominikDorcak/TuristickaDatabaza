@@ -75,6 +75,8 @@ public class MainSceneAdminController {
                 Scene scene = new Scene(parentPane);
 
                 Stage stage = new Stage();
+                stage.setMinHeight(400);
+                stage.setMinWidth(600);
                 stage.setScene(scene);
                 stage.setTitle("Turistická daatabáza: nová lokalita ");
                 stage.initModality(Modality.WINDOW_MODAL);
@@ -98,7 +100,7 @@ public class MainSceneAdminController {
 
         lokalitaTableFxModel.loadAll();
         lokality_table.setItems(lokalitaTableFxModel.getLokality());
-        
+
         lokality_table.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -106,27 +108,29 @@ public class MainSceneAdminController {
                     //odkomentovat/upravit po pridani okna na zobrazenie lokality + controllera
                     Lokalita l = lokality_table.getSelectionModel().getSelectedItem();
                     try {
-                    LocationSceneController controller = new LocationSceneController(l, prihlaseneyPouzivatel);
-                    FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("LocationScene.fxml"));
-                    loader.setController(controller);
-                    
-                    Parent parentPane = loader.load();
-                    Scene scene = new Scene(parentPane);
-                    
-                    Stage stage = new Stage();
-                    stage.setScene(scene);
-                    stage.setTitle("Turistická databáza: profil lokality ");
-                    stage.initModality(Modality.WINDOW_MODAL);
-                    stage.showAndWait();
-                    lokalitaTableFxModel.loadAll();
-                    lokality_table.setItems(lokalitaTableFxModel.getLokality());
+                        LocationSceneController controller = new LocationSceneController(l, prihlaseneyPouzivatel);
+                        FXMLLoader loader = new FXMLLoader(
+                                getClass().getResource("LocationScene.fxml"));
+                        loader.setController(controller);
+
+                        Parent parentPane = loader.load();
+                        Scene scene = new Scene(parentPane);
+
+                        Stage stage = new Stage();
+                        stage.setMinHeight(400);
+                        stage.setMinWidth(600);
+                        stage.setScene(scene);
+                        stage.setTitle("Turistická databáza: profil lokality ");
+                        stage.initModality(Modality.WINDOW_MODAL);
+                        stage.showAndWait();
+                        lokalitaTableFxModel.loadAll();
+                        lokality_table.setItems(lokalitaTableFxModel.getLokality());
                     } catch (IOException iOException) {
-                    iOException.printStackTrace();
+                        iOException.printStackTrace();
                     }
                 }
-                }
-            
+            }
+
         });
 
         nacitajOblubeneButton.setOnAction(eh -> {
@@ -156,6 +160,8 @@ public class MainSceneAdminController {
 
                 Stage stage = new Stage();
                 stage.setScene(scene);
+                stage.setMinHeight(400);
+                stage.setMinWidth(600);
                 stage.setTitle("Turistická daatabáza: správa používateľov ");
                 stage.initModality(Modality.WINDOW_MODAL);
                 stage.showAndWait();

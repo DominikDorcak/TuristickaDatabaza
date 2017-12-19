@@ -112,6 +112,8 @@ class LoginSceneController {
 
                 Stage stage = new Stage();
                 stage.setScene(scene);
+                stage.setMinHeight(559);
+                stage.setMinWidth(765);
                 stage.setTitle("Turistická databáza: Hlavné menu(administrátor)");
                 stage.initModality(Modality.APPLICATION_MODAL);
                 stage.showAndWait();
@@ -134,6 +136,8 @@ class LoginSceneController {
                 Scene scene = new Scene(parentPane);
 
                 Stage stage = new Stage();
+                stage.setMinHeight(559);
+                stage.setMinWidth(765);
                 stage.setScene(scene);
                 stage.setTitle("Turistická databáza: Hlavné menu");
                 stage.initModality(Modality.APPLICATION_MODAL);

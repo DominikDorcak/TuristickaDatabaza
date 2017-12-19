@@ -74,6 +74,8 @@ class MainSceneController {
                 Scene scene = new Scene(parentPane);
 
                 Stage stage = new Stage();
+                stage.setMinHeight(400);
+                stage.setMinWidth(600);
                 stage.setScene(scene);
                 stage.setTitle("Turistická databáza: nová lokalita ");
                 stage.initModality(Modality.WINDOW_MODAL);
@@ -94,32 +96,34 @@ class MainSceneController {
         priemHodnCol.setMinWidth(200);
         priemHodnCol.setCellValueFactory(new PropertyValueFactory<Lokalita, Double>("hodnotenie"));
         lokality_table.getColumns().add(priemHodnCol);
-        
+
         lokality_table.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                     Lokalita l = lokality_table.getSelectionModel().getSelectedItem();
+                    Lokalita l = lokality_table.getSelectionModel().getSelectedItem();
                     try {
-                    LocationSceneController controller = new LocationSceneController(l, prihlaseneyPouzivatel);
-                    FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("LocationScene.fxml"));
-                    loader.setController(controller);
-                    
-                    Parent parentPane = loader.load();
-                    Scene scene = new Scene(parentPane);
-                    
-                    Stage stage = new Stage();
-                    stage.setScene(scene);
-                    stage.setTitle(l.getNazov());
-                    stage.initModality(Modality.WINDOW_MODAL);
-                    stage.showAndWait();
+                        LocationSceneController controller = new LocationSceneController(l, prihlaseneyPouzivatel);
+                        FXMLLoader loader = new FXMLLoader(
+                                getClass().getResource("LocationScene.fxml"));
+                        loader.setController(controller);
+
+                        Parent parentPane = loader.load();
+                        Scene scene = new Scene(parentPane);
+
+                        Stage stage = new Stage();
+                        stage.setMinHeight(400);
+                        stage.setMinWidth(600);
+                        stage.setScene(scene);
+                        stage.setTitle(l.getNazov());
+                        stage.initModality(Modality.WINDOW_MODAL);
+                        stage.showAndWait();
                     } catch (IOException iOException) {
-                    iOException.printStackTrace();
+                        iOException.printStackTrace();
                     }
                 }
-                }
-            
+            }
+
         });
 
         lokalitaTableFxModel.loadAll();
