@@ -8,12 +8,12 @@ public interface PouzivatelDao {
 
     Pouzivatel getByLogin(String login);
 
-    void saveNew(Pouzivatel pouzivatel);
+    boolean saveNew(Pouzivatel pouzivatel);
     
     boolean povysByLogin(String login);
     
-    public boolean deleteByLogin(String login);
+    boolean deleteByLogin(String login);
     
-    public boolean pridajOblubenu(Lokalita lokalita,Pouzivatel pouzivatel);
+    boolean pridajOblubenu(Lokalita lokalita,Pouzivatel pouzivatel);
 
 }

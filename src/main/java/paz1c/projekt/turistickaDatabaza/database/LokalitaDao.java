@@ -16,10 +16,10 @@ public interface LokalitaDao {
 
     List<Lokalita> getSchvalena();
 
-    void saveNew(Lokalita l);
+    boolean saveNew(Lokalita l);
     
-    public boolean schvalById(Long id);
+    boolean schvalById(Long id);
     
-    public boolean deleteById(Long id);
+    boolean deleteById(Long id);
 
 }

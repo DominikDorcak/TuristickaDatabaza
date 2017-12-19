@@ -100,10 +100,16 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
     }
 
     @Override
-    public void saveNew(Pouzivatel pouzivatel) {
+    public boolean saveNew(Pouzivatel pouzivatel) {
         String query = "INSERT INTO TuristickaDatabaza.Pouzivatel(login,email,heslo,admin) VALUES (?,?,?,0)";
-        jdbcTemplate.update(query, pouzivatel.getLogin(), pouzivatel.getEmail(), pouzivatel.getHeslo());
+        try {
+            int ulozenych = jdbcTemplate.update(query, pouzivatel.getLogin(), 
+                    pouzivatel.getEmail(), pouzivatel.getHeslo());
 
+            return ulozenych == 1;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
