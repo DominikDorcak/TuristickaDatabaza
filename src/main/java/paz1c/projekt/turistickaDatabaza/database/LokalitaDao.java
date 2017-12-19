@@ -19,5 +19,7 @@ public interface LokalitaDao {
     void saveNew(Lokalita l);
     
     public boolean schvalById(Long id);
+    
+    public boolean deleteById(Long id);
 
 }

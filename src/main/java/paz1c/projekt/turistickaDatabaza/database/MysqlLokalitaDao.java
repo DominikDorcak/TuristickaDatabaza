@@ -91,13 +91,13 @@ public class MysqlLokalitaDao implements LokalitaDao {
 
     @Override
     public void fillRecenzie(Lokalita lokalita) {
-        String query = "Select lokalita_id,pouzivatel_login,text,datum,hodnotenie from Recenzia "
+        String query = "Select lokalita_id,pouzivatel_login,text,datum,hodnotenie,id from Recenzia "
                 + "where lokalita_id = " + lokalita.getId() + ";";
         lokalita.setRecenzie(jdbcTemplate.query(query, new ResultSetExtractor<List<Recenzia>>() {
             @Override
             public List<Recenzia> extractData(ResultSet rs) throws SQLException, DataAccessException {
                 List<Recenzia> recenzie = new ArrayList<>();
-               
+
                 while (rs.next()) {
                     Recenzia recenzia = new Recenzia();
                     recenzia.setIdLokality(lokalita.getId());
@@ -105,6 +105,7 @@ public class MysqlLokalitaDao implements LokalitaDao {
                     recenzia.setText(rs.getString("text"));
                     recenzia.setHodnotenie(rs.getInt("hodnotenie"));
                     recenzia.setDatum(rs.getTimestamp("datum"));
+                    recenzia.setId(rs.getLong("id"));
                     recenzie.add(recenzia);
 
                 }
@@ -122,7 +123,7 @@ public class MysqlLokalitaDao implements LokalitaDao {
         if (lokalita.getId() == id) {
         return lokalita;
         }
-        
+
         }
         return null;*/
 
@@ -170,10 +171,10 @@ public class MysqlLokalitaDao implements LokalitaDao {
         String query = "insert into Lokalita(Nazov,popis,region,schvalena) Values (?,?,?,0);";
         jdbcTemplate.update(query, l.getNazov(), l.getPopis(), l.getRegion());
     }
-    
+
     @Override
-    public boolean schvalById(Long id){
-        String query = "update Lokalita set schvalena = 1 where id = "+id + ";";
+    public boolean schvalById(Long id) {
+        String query = "update Lokalita set schvalena = 1 where id = " + id + ";";
         try {
             int schvalenych = jdbcTemplate.update(query);
             return schvalenych == 1;
@@ -181,6 +182,15 @@ public class MysqlLokalitaDao implements LokalitaDao {
             return false;
         }
     }
-    
-    
+
+    @Override
+    public boolean deleteById(Long id) {
+        String query = "delete from Lokalita where id = " + id + ";";
+        try {
+            int vymazanych = jdbcTemplate.update(query);
+            return vymazanych == 1;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

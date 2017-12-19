@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 
 public class Recenzia {
 
+    
+    private long id;
     private long idLokality;
     private String loginPouzivatela;
     private String text;
@@ -48,6 +50,14 @@ public class Recenzia {
 
     public void setDatum(Timestamp datum) {
         this.datum = datum;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
 }
