@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,6 +15,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -25,7 +27,7 @@ public class LocationSceneController {
 
     private Lokalita vybranaLokalita;
     private Pouzivatel prihlasenyPouzivatel;
-    
+    private Recenzia vybranaRecenzia;
 
     @FXML
     private Label Lokalita_label;
@@ -44,6 +46,11 @@ public class LocationSceneController {
 
     @FXML
     private Button pridatRecenziuButton;
+    
+    @FXML
+    private Button vymazatRecenziuButton;
+    
+    
 
     @FXML
     private VBox obrazkyVbox;
@@ -63,6 +70,7 @@ public class LocationSceneController {
     public LocationSceneController(Lokalita vybranaLokalita, Pouzivatel prihlasenyPouzivatel) {
         this.vybranaLokalita = vybranaLokalita;
         this.prihlasenyPouzivatel = prihlasenyPouzivatel;
+        
     }
     
     
@@ -101,8 +109,27 @@ public class LocationSceneController {
         datumCol.setMinWidth(200);
         recenzie_table.getColumns().add(datumCol);
         
+        vymazatRecenziuButton.setDisable(true);
+        
         ObservableList<Recenzia> recenzie= FXCollections.observableArrayList(vybranaLokalita.getRecenzie());
         recenzie_table.setItems(recenzie);
+         recenzie_table.setOnMousePressed((MouseEvent event) -> {
+             if (event.isPrimaryButtonDown()){
+                 vybranaRecenzia = recenzie_table.getSelectionModel().getSelectedItem();
+                  vymazatRecenziuButton.setDisable(!(prihlasenyPouzivatel.isAdmin() || 
+                 vybranaRecenzia.getLoginPouzivatela().equals(prihlasenyPouzivatel.getLogin())));
+             }
+        });
+         
+        
+         
+         vymazatRecenziuButton.setOnAction(eh ->{
+         DaoFactory.INSTANCE.getRecenziaDao().deleteById(vybranaRecenzia.getId());
+         vybranaLokalita = DaoFactory.INSTANCE.getLokalitaDao().getById(vybranaLokalita.getId());
+         ObservableList noveRecenzie= FXCollections.observableArrayList(vybranaLokalita.getRecenzie());
+         recenzie_table.setItems(noveRecenzie);
+         
+         });
         
          pridatRecenziuButton.setOnAction(eh -> {
             try {

@@ -31,6 +31,8 @@ public class MainSceneAdminController {
 
     private Pouzivatel prihlaseneyPouzivatel;
     private LokalitaTableFxModel lokalitaTableFxModel = new LokalitaTableFxModel();
+    private Lokalita vybranaLokalita;
+    
 
     @FXML
     private Button pridatLokaciuButton;
@@ -46,6 +48,9 @@ public class MainSceneAdminController {
 
     @FXML
     private Button nacitajOblubeneButton;
+    
+    @FXML
+    private Button vymazatLokalituButton;
 
     @FXML
     private Button nacitajVsetkyButton;
@@ -104,11 +109,16 @@ public class MainSceneAdminController {
         lokality_table.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                if (event.isPrimaryButtonDown()){
+                    vybranaLokalita = lokality_table.getSelectionModel().getSelectedItem();
+                    vymazatLokalituButton.setDisable(false);
+                }
+                
                 if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
                     //odkomentovat/upravit po pridani okna na zobrazenie lokality + controllera
-                    Lokalita l = lokality_table.getSelectionModel().getSelectedItem();
+                   
                     try {
-                        LocationSceneController controller = new LocationSceneController(l, prihlaseneyPouzivatel);
+                        LocationSceneController controller = new LocationSceneController(vybranaLokalita, prihlaseneyPouzivatel);
                         FXMLLoader loader = new FXMLLoader(
                                 getClass().getResource("LocationScene.fxml"));
                         loader.setController(controller);
@@ -132,6 +142,12 @@ public class MainSceneAdminController {
             }
 
         });
+        
+        vymazatLokalituButton.setDisable(vybranaLokalita == null);
+        
+        vymazatLokalituButton.setOnAction(eh -> {
+        DaoFactory.INSTANCE.getLokalitaDao().deleteById(vybranaLokalita.getId());
+        });
 
         nacitajOblubeneButton.setOnAction(eh -> {
             lokalitaTableFxModel.loadOblubene(prihlaseneyPouzivatel);
@@ -147,6 +163,8 @@ public class MainSceneAdminController {
             lokalitaTableFxModel.loadNaSchvalenie();
             lokality_table.setItems(lokalitaTableFxModel.getLokality());
         });
+        
+        
 
         spravaPouzivatelovButton.setOnAction(eh -> {
             try {

@@ -62,6 +62,10 @@ public class RegistrationSceneController {
                 hlaskaLabel.textProperty().set("Používateľ s takýmto loginom už existuje");
                 hesloPasswordField.clear();
                 overenieHeslaPasswordField.clear();
+            } else if (hesloPasswordField.textProperty().get().length() < 4) {
+                hlaskaLabel.textProperty().set("Heslo musí mať aspoň 4 znaky");
+                hesloPasswordField.clear();
+                overenieHeslaPasswordField.clear();
             } else {
                 Pouzivatel pouzivatel = new Pouzivatel();
                 pouzivatel.setAdmin(false);
@@ -72,6 +76,7 @@ public class RegistrationSceneController {
                 registrationButton.getScene().getWindow().hide();
             }
         });
+
     }
 
 }

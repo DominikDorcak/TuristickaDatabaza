@@ -82,6 +82,10 @@ class LoginSceneController {
                 Scene scene = new Scene(parentPane);
 
                 Stage stage = new Stage();
+                stage.setMinHeight(450);
+                stage.setMinWidth(350);
+                stage.setMaxHeight(450);
+                stage.setMaxWidth(350);
                 stage.setScene(scene);
                 stage.setTitle("Turistická daatabáza: registrácia");
                 stage.initModality(Modality.APPLICATION_MODAL);

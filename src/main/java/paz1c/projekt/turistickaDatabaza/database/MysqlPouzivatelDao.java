@@ -21,7 +21,7 @@ public class MysqlPouzivatelDao implements PouzivatelDao {
     public List<Pouzivatel> getAll() {
         String query = "select  p.login, p.heslo, p.email ,p.admin,o.Lokalita_id "
                 + "from Pouzivatel p left outer join Oblubene o "
-                + "on  o.Pouzivatel_login = p.login ;";
+                + "on  o.Pouzivatel_login = p.login order by p.login ;";
 
         return jdbcTemplate.query(query, new ResultSetExtractor<List<Pouzivatel>>() {
             @Override
