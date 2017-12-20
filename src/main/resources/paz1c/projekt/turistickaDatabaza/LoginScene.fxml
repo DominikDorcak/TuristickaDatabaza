@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="345.0" maxWidth="474.0" minHeight="345.0" minWidth="474.0" prefHeight="345.0" prefWidth="474.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="345.0" maxWidth="474.0" minHeight="345.0" minWidth="474.0" prefHeight="345.0" prefWidth="474.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Label alignment="TOP_CENTER" layoutX="2.0" layoutY="14.0" prefHeight="26.0" prefWidth="474.0" text="Prihlásenie" textAlignment="CENTER" textFill="#200575" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="20.0">
             <font>
@@ -31,7 +31,7 @@
         </HBox>
         <HBox alignment="TOP_CENTER" layoutX="16.0" layoutY="320.0" prefHeight="26.0" prefWidth="454.0" spacing="150.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
             <children>
-                <Button fx:id="loginButton" mnemonicParsing="false" text="Prihlásiť sa!" />
+                <Button fx:id="loginButton" defaultButton="true" mnemonicParsing="false" text="Prihlásiť sa!" />
                 <Button fx:id="registraciaButton" mnemonicParsing="false" text="Registrovať!" />
             </children>
         </HBox>

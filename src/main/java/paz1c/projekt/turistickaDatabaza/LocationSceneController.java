@@ -88,7 +88,7 @@ public class LocationSceneController {
         hodnotenie_label.textProperty().set("Priemerné Hodnotenie: " + vybranaLokalita.getHodnotenie());
         
         popis_label.textProperty().set(vybranaLokalita.getPopis());
-        SP.setVvalue(0);
+        SP.setVvalue(-1000);
         recenzie_table.getColumns().clear();
         TableColumn pouzivatelCol = new TableColumn("Používateľ");
         pouzivatelCol.setMinWidth(150);
