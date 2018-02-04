@@ -2,6 +2,8 @@ package paz1c.projekt.turistickaDatabaza;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -12,10 +14,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -27,7 +25,9 @@ public class LocationSceneController {
 
     private Lokalita vybranaLokalita;
     private Pouzivatel prihlasenyPouzivatel;
-    private Recenzia vybranaRecenzia;
+
+    @FXML
+    private ScrollPane SP;
 
     @FXML
     private Label Lokalita_label;
@@ -42,16 +42,10 @@ public class LocationSceneController {
     private Label popis_label;
 
     @FXML
-    private TableView<Recenzia> recenzie_table;
+    private ScrollPane RecenzieSP;
 
     @FXML
     private Button pridatRecenziuButton;
-    
-    @FXML
-    private Button vymazatRecenziuButton;
-    
-    @FXML
-    private ScrollPane SP;
 
     @FXML
     private VBox obrazkyVbox;
@@ -89,48 +83,6 @@ public class LocationSceneController {
         
         popis_label.textProperty().set(vybranaLokalita.getPopis());
         SP.setVvalue(-1000);
-        recenzie_table.getColumns().clear();
-        TableColumn pouzivatelCol = new TableColumn("Používateľ");
-        pouzivatelCol.setMinWidth(150);
-        pouzivatelCol.setCellValueFactory(new PropertyValueFactory<Recenzia, String>("loginPouzivatela"));
-        recenzie_table.getColumns().add(pouzivatelCol);
-        
-        TableColumn hodnotenieCol = new TableColumn("Hodnotenie");
-        hodnotenieCol.setMinWidth(150);
-        hodnotenieCol.setCellValueFactory(new PropertyValueFactory<Recenzia, Integer>("hodnotenie"));
-        recenzie_table.getColumns().add(hodnotenieCol);
-        
-        TableColumn textCol = new TableColumn("text recenzie");
-        textCol.setCellValueFactory(new PropertyValueFactory<Recenzia, String>("text"));
-        textCol.setMinWidth(300);
-        recenzie_table.getColumns().add(textCol);
-        
-         TableColumn datumCol = new TableColumn("Čas pridania");
-        datumCol.setCellValueFactory(new PropertyValueFactory<Recenzia, Timestamp>("datum"));
-        datumCol.setMinWidth(200);
-        recenzie_table.getColumns().add(datumCol);
-        
-        vymazatRecenziuButton.setDisable(true);
-        
-        ObservableList<Recenzia> recenzie= FXCollections.observableArrayList(vybranaLokalita.getRecenzie());
-        recenzie_table.setItems(recenzie);
-         recenzie_table.setOnMousePressed((MouseEvent event) -> {
-             if (event.isPrimaryButtonDown()){
-                 vybranaRecenzia = recenzie_table.getSelectionModel().getSelectedItem();
-                  vymazatRecenziuButton.setDisable(!(prihlasenyPouzivatel.isAdmin() || 
-                 vybranaRecenzia.getLoginPouzivatela().equals(prihlasenyPouzivatel.getLogin())));
-             }
-        });
-         
-        
-         
-         vymazatRecenziuButton.setOnAction(eh ->{
-         DaoFactory.INSTANCE.getRecenziaDao().deleteById(vybranaRecenzia.getId());
-         vybranaLokalita = DaoFactory.INSTANCE.getLokalitaDao().getById(vybranaLokalita.getId());
-         ObservableList noveRecenzie= FXCollections.observableArrayList(vybranaLokalita.getRecenzie());
-         recenzie_table.setItems(noveRecenzie);
-         
-         });
         
          pridatRecenziuButton.setOnAction(eh -> {
             try {
@@ -149,13 +101,14 @@ public class LocationSceneController {
                 stage.setTitle("Turistická daatabáza: pridať recenziu ");
                 stage.initModality(Modality.WINDOW_MODAL);
                 stage.showAndWait();
-                ObservableList noveRecenzie= FXCollections.observableArrayList(vybranaLokalita.getRecenzie());
-                recenzie_table.setItems(noveRecenzie);
+                naplnRecenzie();
                 
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }
         });
+         
+        naplnRecenzie();
         
         schvalitButton.setVisible(!vybranaLokalita.isSchvalena());
         schvalitButton.setDisable(vybranaLokalita.isSchvalena());
@@ -186,5 +139,32 @@ public class LocationSceneController {
         
        
 
+    }
+
+    private void naplnRecenzie() {
+        VBox recenzieBox = new VBox();
+        List<Parent> recenzieList =  new ArrayList();
+        for (Recenzia r : vybranaLokalita.getRecenzie()) {
+            try {
+                RecenziaSceneController controller = new RecenziaSceneController(r,prihlasenyPouzivatel,vybranaLokalita);
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("RecenziaScene.fxml"));
+                loader.setController(controller);
+                
+                Parent parentPane = loader.load();
+                recenzieList.add(parentPane);
+                
+                
+                
+                
+            } catch (IOException iOException) {
+                iOException.printStackTrace();
+            }
+        }
+        
+        recenzieBox.getChildren().addAll(recenzieList);
+        recenzieBox.fillWidthProperty().set(true);
+        
+        RecenzieSP.setContent(recenzieBox);
     }
 }

@@ -11,7 +11,9 @@ package paz1c.projekt.turistickaDatabaza.database;
  */
 public interface RecenziaDao {
 
-    boolean save(Recenzia recenzia);
+    void save(Recenzia recenzia);
+    
+    void update(Recenzia recenzia);
     
     boolean deleteById(Long id);
 

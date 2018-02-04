@@ -30,10 +30,19 @@ public class PridatRecenziuController {
     private Pouzivatel prihlasenyPouzivatel;
     private Lokalita aktualnaLokalita;
     private RecenziaFxModel recenziaFxModel = new RecenziaFxModel();
+    
 
     public PridatRecenziuController(Pouzivatel prihlasenyPouzivatel, Lokalita aktualnaLokalita) {
         this.prihlasenyPouzivatel = prihlasenyPouzivatel;
         this.aktualnaLokalita = aktualnaLokalita;
+    }
+    
+    public PridatRecenziuController(Pouzivatel prihlasenyPouzivatel, Lokalita aktualnaLokalita,Recenzia recenzia) {
+        this.prihlasenyPouzivatel = prihlasenyPouzivatel;
+        this.aktualnaLokalita = aktualnaLokalita;
+        this.recenziaFxModel.setHodnotenie(recenzia.getHodnotenie());
+        this.recenziaFxModel.setId(recenzia.getId());
+        this.recenziaFxModel.setText(recenzia.getText());
     }
     
     
@@ -77,16 +86,20 @@ public class PridatRecenziuController {
        
        UlozitButton.setOnAction(eh -> {
        Recenzia r = new Recenzia();
+       if(!(recenziaFxModel.getId() == null))
+            r.setId(recenziaFxModel.getId());
        r.setIdLokality(recenziaFxModel.getLokalitaId());
        r.setLoginPouzivatela(recenziaFxModel.getPouzivatelLogin());
        r.setText(recenziaFxModel.getText());
        r.setHodnotenie(hodnotenieComboBox.getValue());
        r.setDatum(Timestamp.valueOf(LocalDateTime.now()));
-       
+              
+
            DaoFactory.INSTANCE.getRecenziaDao().save(r);
+           if(!(r.getId() == null)){
            aktualnaLokalita.getRecenzie().add(r);
            aktualnaLokalita.PriemerneHodnotenie();
-           
+           }
            UlozitButton.getScene().getWindow().hide();
        
        });

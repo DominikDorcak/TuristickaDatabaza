@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package paz1c.projekt.turistickaDatabaza.models;
 
 import javafx.beans.property.IntegerProperty;
@@ -18,6 +14,7 @@ import javafx.beans.property.StringProperty;
  */
 public class RecenziaFxModel {
     
+    private LongProperty Id = null;
     private StringProperty pouzivatelLogin = new SimpleStringProperty();
     private LongProperty lokalitaId = new SimpleLongProperty();
     private StringProperty text = new SimpleStringProperty();
@@ -43,6 +40,21 @@ public class RecenziaFxModel {
 
     public void setLokalitaId(Long lokalitaId) {
         this.lokalitaId.set(lokalitaId);
+    }
+    public LongProperty IdProperty() {
+        return Id;
+    }
+    public Long getId() {
+        if (!(Id == null))
+        return Id.get();
+        
+        return null;
+    }
+
+    public void setId(Long Id) {
+        if (!(Id == null)){
+        this.Id = new SimpleLongProperty(Id);
+        }else{}
     }
 
     public StringProperty TextProperty() {

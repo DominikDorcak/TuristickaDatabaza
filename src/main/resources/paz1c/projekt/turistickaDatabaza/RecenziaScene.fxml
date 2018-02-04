@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox alignment="TOP_CENTER" layoutY="14.0" prefHeight="29.0" prefWidth="600.0" spacing="150.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+         <children>
+            <Label fx:id="LoginLabel" text="Login" textFill="BLUE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="HodnotenieLabel" text="H" textFill="BLUE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="DatumLabel" text="Datum" textFill="BLUE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="BOTTOM_RIGHT" layoutX="6.0" layoutY="69.0" prefHeight="29.0" prefWidth="590.0" spacing="50.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
+         <children>
+            <Button fx:id="UpravitButton" mnemonicParsing="false" text="Upraviť" />
+            <Button fx:id="VymazatButton" mnemonicParsing="false" text="Vymazať" />
+         </children>
+      </HBox>
+      <Label fx:id="TextLabel" layoutX="25.0" layoutY="67.0" text="Text" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="67.0" />
+   </children>
+</AnchorPane>
