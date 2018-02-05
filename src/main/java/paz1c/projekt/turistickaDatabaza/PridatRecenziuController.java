@@ -39,10 +39,12 @@ public class PridatRecenziuController {
     
     public PridatRecenziuController(Pouzivatel prihlasenyPouzivatel, Lokalita aktualnaLokalita,Recenzia recenzia) {
         this.prihlasenyPouzivatel = prihlasenyPouzivatel;
+        aktualnaLokalita.getRecenzie().remove(recenzia);
         this.aktualnaLokalita = aktualnaLokalita;
         this.recenziaFxModel.setHodnotenie(recenzia.getHodnotenie());
         this.recenziaFxModel.setId(recenzia.getId());
         this.recenziaFxModel.setText(recenzia.getText());
+        
     }
     
     
@@ -83,6 +85,7 @@ public class PridatRecenziuController {
        
        textTextArea.textProperty().bindBidirectional(recenziaFxModel.TextProperty());
        hodnotenieComboBox.getItems().addAll(0,1,2,3,4,5);
+       hodnotenieComboBox.setValue(0);
        
        UlozitButton.setOnAction(eh -> {
        Recenzia r = new Recenzia();
@@ -96,10 +99,9 @@ public class PridatRecenziuController {
               
 
            DaoFactory.INSTANCE.getRecenziaDao().save(r);
-           if(!(r.getId() == null)){
            aktualnaLokalita.getRecenzie().add(r);
            aktualnaLokalita.PriemerneHodnotenie();
-           }
+           
            UlozitButton.getScene().getWindow().hide();
        
        });

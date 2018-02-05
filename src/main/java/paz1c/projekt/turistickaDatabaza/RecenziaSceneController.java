@@ -23,11 +23,13 @@ public class RecenziaSceneController {
     private Recenzia recenzia;
     private Pouzivatel prihlasenyPouzivatel;
     private Lokalita vybranaLokalita;
-
-    public RecenziaSceneController(Recenzia recenzia, Pouzivatel prihlasenyPouzivatel, Lokalita vybranaLokalita) {
+    private LocationSceneController zavolaneZ;
+    
+    public RecenziaSceneController(Recenzia recenzia, Pouzivatel prihlasenyPouzivatel, Lokalita vybranaLokalita,LocationSceneController zavolaneZ) {
         this.recenzia = recenzia;
         this.prihlasenyPouzivatel = prihlasenyPouzivatel;
         this.vybranaLokalita = vybranaLokalita;
+        this.zavolaneZ = zavolaneZ;
     }
 
     @FXML
@@ -79,6 +81,7 @@ public class RecenziaSceneController {
                 stage.setTitle("Turistická daatabáza: upraviť recenziu ");
                 stage.initModality(Modality.WINDOW_MODAL);
                 stage.showAndWait();
+                zavolaneZ.naplnRecenzie();
 
                 LoginLabel.textProperty().set(recenzia.getLoginPouzivatela());
 
@@ -101,6 +104,7 @@ public class RecenziaSceneController {
             for (Recenzia r : vybranaLokalita.getRecenzie()) {
                 if (r.getId().equals(recenzia.getId())) {
                     vybranaLokalita.getRecenzie().remove(r);
+                    zavolaneZ.naplnRecenzie();
                 }
 
             }

@@ -65,26 +65,25 @@ public class LocationSceneController {
     public LocationSceneController(Lokalita vybranaLokalita, Pouzivatel prihlasenyPouzivatel) {
         this.vybranaLokalita = vybranaLokalita;
         this.prihlasenyPouzivatel = prihlasenyPouzivatel;
-        
+
     }
-    
-    
 
     @FXML
     void initialize() {
-        
+
         hlaskaLabel.textProperty().set(null);
-        
+
         Lokalita_label.textProperty().set(vybranaLokalita.getNazov());
-        
+
         region_label.textProperty().set("Región: " + vybranaLokalita.getRegion());
-        
+
         hodnotenie_label.textProperty().set("Priemerné Hodnotenie: " + vybranaLokalita.getHodnotenie());
-        
+
         popis_label.textProperty().set(vybranaLokalita.getPopis());
-        SP.setVvalue(-1000);
-        
-         pridatRecenziuButton.setOnAction(eh -> {
+        SP.setVvalue(Double.NEGATIVE_INFINITY);
+        RecenzieSP.setVvalue(Double.NEGATIVE_INFINITY);
+
+        pridatRecenziuButton.setOnAction(eh -> {
             try {
                 PridatRecenziuController controller = new PridatRecenziuController(prihlasenyPouzivatel, vybranaLokalita);
                 FXMLLoader loader = new FXMLLoader(
@@ -102,69 +101,63 @@ public class LocationSceneController {
                 stage.initModality(Modality.WINDOW_MODAL);
                 stage.showAndWait();
                 naplnRecenzie();
-                
+
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }
         });
-         
+
         naplnRecenzie();
-        
+
         schvalitButton.setVisible(!vybranaLokalita.isSchvalena());
         schvalitButton.setDisable(vybranaLokalita.isSchvalena());
-        
-        schvalitButton.setOnAction(eh ->{
-        boolean uspech = DaoFactory.INSTANCE.getLokalitaDao().schvalById(vybranaLokalita.getId());
-        if (uspech){
+
+        schvalitButton.setOnAction(eh -> {
+            boolean uspech = DaoFactory.INSTANCE.getLokalitaDao().schvalById(vybranaLokalita.getId());
+            if (uspech) {
                 hlaskaLabel.textProperty().set("Schválená!");
-            }else{
+            } else {
                 hlaskaLabel.textProperty().set("Nastala chyba!");
             }
         });
-        
+
         pridatOblubenuButton.setOnAction(eh -> {
             boolean uspech = DaoFactory.INSTANCE.getPouzivatelDao().pridajOblubenu(vybranaLokalita, prihlasenyPouzivatel);
-            if (uspech){
+            if (uspech) {
                 hlaskaLabel.textProperty().set("Pridaná!");
-            }else{
+            } else {
                 hlaskaLabel.textProperty().set("Nastala chyba!");
             }
-        
+
         });
-        
+
         cancel_button.setOnAction(eh -> {
-        cancel_button.getScene().getWindow().hide();
+            cancel_button.getScene().getWindow().hide();
         });
-        
-        
-       
 
     }
 
-    private void naplnRecenzie() {
+    public void naplnRecenzie() {
         VBox recenzieBox = new VBox();
-        List<Parent> recenzieList =  new ArrayList();
+        List<Parent> recenzieList = new ArrayList();
         for (Recenzia r : vybranaLokalita.getRecenzie()) {
             try {
-                RecenziaSceneController controller = new RecenziaSceneController(r,prihlasenyPouzivatel,vybranaLokalita);
+                RecenziaSceneController controller = new RecenziaSceneController(r, prihlasenyPouzivatel, vybranaLokalita,this);
                 FXMLLoader loader = new FXMLLoader(
                         getClass().getResource("RecenziaScene.fxml"));
                 loader.setController(controller);
-                
+
                 Parent parentPane = loader.load();
                 recenzieList.add(parentPane);
-                
-                
-                
-                
+
             } catch (IOException iOException) {
                 iOException.printStackTrace();
             }
         }
-        
+
         recenzieBox.getChildren().addAll(recenzieList);
         recenzieBox.fillWidthProperty().set(true);
-        
+
         RecenzieSP.setContent(recenzieBox);
     }
 }
