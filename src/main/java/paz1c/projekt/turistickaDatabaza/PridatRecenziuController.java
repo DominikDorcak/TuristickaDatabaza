@@ -107,6 +107,10 @@ public class PridatRecenziuController {
        });
        
        
+       odistButton.setOnAction(eh -> {
+       odistButton.getScene().getWindow().hide();
+       });
+       
     }
 }
 

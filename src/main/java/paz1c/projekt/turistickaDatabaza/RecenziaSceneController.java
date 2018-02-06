@@ -55,7 +55,7 @@ public class RecenziaSceneController {
 
         LoginLabel.textProperty().set(recenzia.getLoginPouzivatela());
 
-        HodnotenieLabel.textProperty().set(Integer.toString(recenzia.getHodnotenie()));
+        HodnotenieLabel.textProperty().set("Hodn:" + recenzia.getHodnotenie());
 
         DatumLabel.textProperty().set(new SimpleDateFormat("dd.MM.yyyy HH:mm").format(recenzia.getDatum()));
 
@@ -85,7 +85,7 @@ public class RecenziaSceneController {
 
                 LoginLabel.textProperty().set(recenzia.getLoginPouzivatela());
 
-                HodnotenieLabel.textProperty().set(Integer.toString(recenzia.getHodnotenie()));
+                HodnotenieLabel.textProperty().set("Hodn:" + recenzia.getHodnotenie());
 
                 DatumLabel.textProperty().set(new SimpleDateFormat("dd.MM.yyyy HH:mm").format(recenzia.getDatum()));
 
